@@ -1,0 +1,105 @@
+## 오늘 배운점 
+
+### 0330
+
+- Django
+  - 다양한 앱을 django 내부에서 만들고 앱마다 자체적으로 가지고 있는 Front-end파일을 구축한다. 
+  - 그리고 해당 앱을 엮어서 웹 서비스를 구축한다.
+  - Django가 모여서  Docker의 컨테이너가 된다. 
+- Docker
+  - Django 컨테이너는 Django서비스의 일, MariaDB는 DB관련 일, Nginx는 서버 관련 일을 나눠서 진행한다. (MVC?)
+  - 이들이 모여서 Docker 시스템을 구축한다. 
+  - Docker를 구축하면 Vultr로 서버에 도커를 올린다.(AWS도 이용 가능)
+- MTV 패턴 
+  - Model
+    - 모델은 장고와 데이터베이스가 통신하게 도와주는 도구이다. 
+    - 객체를 만드는데 유저가 새로 가입하면 객체가 생김, 유저가 게시글을 쓰는 것도 객체. 
+    - 데이터베이스에는 Row, columns가 있다. 
+      - Article이라는 게시글이 있으면 그 안에 Title,article,image가 있는데 이가 DB에서는 Columns로 매칭된다. 
+      - 모델을 설정하면 CRUD는 장고가 다 해준다. 
+  - View
+    - 장고의 계산을 담당하는 부분 
+    - User가 Server에 Request를 보내면 Server는 응답을 위한 절차를 거친다. 그리고 응답을 보낸다. 
+      - ex) 유저 로그인 ,유저가 보낸 요청이 유효한지, DB에서 가져오는 과정, 유저에게 되돌려주는 과정 
+  - Template
+    - 실질적으로 보이는 Front-end요소 
+    - 유저는 웹사이트의 visual을 보는데 그 내부를 어떻게 구현하고 생성할 것인지 보여주는 방법 
+      - ex) 유저가 게시글을 보고 싶을 때, HTML을 동적으로 반환 
+- GIT 
+  - Version Control System
+  - 개발을 계속해서 진행할 때, 버전을 업데이트할텐데 버전 차이에서 문제나 필요를 해결해주는 역할을 할 수 있다.
+  - git은 필수 ! 
+    - 예를 들어 1.1부터 1.3까지 개발을 하게 되는데 1.3에서 에러가 생겼을 때, 롤백을 할 수 있다. 1.2로 
+  - Branch
+    - Main branch로 배포를 할 때, 1.1,1.2로 올라갈 때 추가적인 기능을 구현하고 싶을 수 있다. 기존에 영향을 주지 않으면서
+    - 그럴 때 브랜치를 새로 파서 새로운 기능을 넣고 배포버전에 Merge로 합칠 수 있다. 
+    - 팀워크를 할 때 커밋을 통해 누가 올렸는지 확인할 수 있고, 온라인 깃 저장소를 통해 오픈소스를 올려서 모두가 볼 수 있게하고 이슈를 개선할 수 있게한다. 
+  - Command
+    - add 
+    - commit 
+    - push
+    - pull
+    - branch
+    - checkout
+
+- environ
+
+  - Django를 git에 배포할 때 Secret key가 있는데 이를 노출시키지 않게 하는 역할 
+  - https://django-environ.readthedocs.io/en/latest/
+
+  - Venv 폴더 내부에 해당 코드 복사
+
+    - 주의사항 : SECRET_KEY = '' 이런식으로 띄어쓰기 금지 
+
+    ```python
+    DEBUG=on
+    SECRET_KEY=나의 시크릿 키 넣어주기 
+    DATABASE_URL=psql://urser:un-githubbedpassword@127.0.0.1:8458/database
+    SQLITE_URL=sqlite:///my-local-sqlite.db 
+    CACHE_URL=memcache://127.0.0.1:11211,127.0.0.1:11212,127.0.0.1:11213 
+    REDIS_URL=rediscache://127.0.0.1:6379/1?
+    client_class=django_redis.client.DefaultClient&password=ungithubbed-secret
+    ```
+
+  - settings.py에 해당 코드 복사 (BASE_DIR을 지우고 만들거나, BASE_DIR 위 아래에 코드 추가해줘도 됨 )
+
+    ```python
+    import os,environ
+    env = environ.Env(
+        # set casting, default value
+        DEBUG=(bool, False)
+    )
+    
+    # Build paths inside the project like this: BASE_DIR / 'subdir'.
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    
+    # reading .env file
+    environ.Env.read_env()
+    ```
+
+  - settings.py에서 SECRET_KEY 변경
+
+    ```python
+    SECRET_KEY = env('SECRET_KEY')
+    ```
+
+  - git ignore에 env 파일 추가
+
+    ```pytohn
+    .env
+    ```
+
+  
+
+- 깃허브 팁 
+
+  - 로컬에서 시간 되돌리기
+
+  ```python
+  git log --oneline 
+  #깃에서 로그 확인 
+  git reset -- hard ~num
+  #원하는 만큼 커밋을 없앨 수 있다. 
+  ```
+
+  
