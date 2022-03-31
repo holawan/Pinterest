@@ -129,6 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# static으로 가져온 파일에 대해서 연결해주는 역할 
 STATIC_URL = '/static/'
 
 # 스태틱 파일들이 어디로 모일지 알려주는 역할 
