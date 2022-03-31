@@ -20,6 +20,7 @@ env = environ.Env(
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# 베이스 디렉토리는 settings.py 경로에서 root폴더로 가서 그 폴더를 BASE_DIR로 하겠다.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # reading .env file
@@ -129,6 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 스태틱 파일들이 어디로 모일지 알려주는 역할 
+# os는 라이브러리 , path는 경로 관련한 모듈 중 join하는 function
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+# 스태틱폴더를 따로 만들어서 앱에 종속되지 않고 접근할 수 있게한다. 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

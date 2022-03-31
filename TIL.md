@@ -132,3 +132,18 @@
   - 맘에드는 폰트 클릭
   - 링크 복사해서 head에 넣어주고 (부트스트랩 처럼)
   - 사용할 때는 아래 CSSrules to specify families 참고해서 sytle로 적용시키기 
+
+- STATIC
+
+  - https://docs.djangoproject.com/ko/4.0/howto/static-files/
+  - STATIC_ROOT 설정 
+
+  ```python
+  STATIC_URL = '/static/'
+  
+  STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+  ```
+
+  2.  베이스 디렉토리는 settings.py 경로에서 root폴더로 가서 그 폴더를 BASE_DIR로 하겠다.
+  3. 즉, BASE_DIR 하위에 staticfiles에 추후 스태틱 파일들을 모으겠다.
+  4. 
