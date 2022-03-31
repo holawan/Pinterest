@@ -109,6 +109,7 @@
 ### 0331
 
 - HTML 
+
   - 장고에서는 extends와 include를 많이 쓴다. 용도가 살짝 다르다
     - extends : 미리 만들어놓은 HTML 템플릿을 가져와서 블록을 이용해 내용을 채워나간다. (바탕을 깔아준다. )
     - include : 조각을 가져와서 HTML에 추가한다. (더미를 가져와서 붙여준다. )
@@ -118,3 +119,16 @@
   - border-radius는 블록의 가장자리에 공유를 줘서 부드럽게 만드는 것
   - base.html은 이제 베이스로 쓰고 앱 내부에 templates를 만든다.
     - templates 내부에 앱 이름과 같은 폴더를 다시 만들고 html파일을 그 안에 넣는데 그 이유는 앱 내부의  템플릿에서 html을 가져올 때, 어떤 앱에서 html을 가져왔는지 가독성 있게 확인할 수 있다.
+  - 마진에 값을 두개 넣어주면 앞에는 상하, 뒤에는 좌우
+
+  ``` html
+   margin : 2rem 0;
+  ```
+
+- 구글 폰트 적용하는 법 
+
+  - https://fonts.google.com/?subset=korean 접속
+  - 상단 sentence 빈칸에 임의의 글 입력
+  - 맘에드는 폰트 클릭
+  - 링크 복사해서 head에 넣어주고 (부트스트랩 처럼)
+  - 사용할 때는 아래 CSSrules to specify families 참고해서 sytle로 적용시키기 
