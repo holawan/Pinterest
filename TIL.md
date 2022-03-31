@@ -114,4 +114,7 @@
     - include : 조각을 가져와서 HTML에 추가한다. (더미를 가져와서 붙여준다. )
     - 즉, extends로 바탕을 만들고 include로 내용을 채워준다! 
   - HTML 뼈대 자체는 base로 만들고 head는 앱마다 다를 수 있기 때문에 따로 템플릿을 만들어서 include로 쓸 수 있다.
+  - header와 footer도 재사용하고, body부분만 수정할 것이기 때문에 include로 빼준다.
   - border-radius는 블록의 가장자리에 공유를 줘서 부드럽게 만드는 것
+  - base.html은 이제 베이스로 쓰고 앱 내부에 templates를 만든다.
+    - templates 내부에 앱 이름과 같은 폴더를 다시 만들고 html파일을 그 안에 넣는데 그 이유는 앱 내부의  템플릿에서 html을 가져올 때, 어떤 앱에서 html을 가져왔는지 가독성 있게 확인할 수 있다.
