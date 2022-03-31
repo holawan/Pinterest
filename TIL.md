@@ -146,4 +146,8 @@
 
   2.  베이스 디렉토리는 settings.py 경로에서 root폴더로 가서 그 폴더를 BASE_DIR로 하겠다.
   3. 즉, BASE_DIR 하위에 staticfiles에 추후 스태틱 파일들을 모으겠다.
-  4. 
+
+- CSS
+
+  - STATIC 폴더 안에 CSS파일을 만들고, head에서 링크를 받게한다. 
+  - 공통된 요소들은 가시성 있게 클래스로 만들고 style을 css파일에서 준다. 
