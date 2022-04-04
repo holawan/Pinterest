@@ -35,7 +35,7 @@
     
     
     {% if hello_world_list %}
-    {% comment %} hello_world_list를 돌면서 내부 요소 하니씩 렌더링  {% endcomment %}
+    {% comment %} hello_world_list를 돌면서 내부 요소 하나씩 출력  {% endcomment %}
       {% for hello_world in hello_world_list %}
         <h1>{{hello_world.text}}</h1>
       {% endfor %}
