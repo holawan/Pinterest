@@ -215,3 +215,51 @@
   - **CSRF_TOKEN**
     - 장고에서 POST를 보내려면 CSRF_TOKEN을 명시해야한다.
     - CSRF_TOKEN은 보안 기능을 한다. 
+
+- DB SAVE
+
+  - Send POST DATA
+
+    - POST로 데이터를 보낼 때 데이터를 구분하기 위해 name을 설정할 수 있다.
+    - 이 name을 기반으로 views.py에서 request.POST.get(name)으로 해당 데이터를 인식하고 사용할 수 있다.
+
+    ```python
+    ## hello_world.html
+    <input type="text" name="hello_world_input">
+    
+    ## views.py
+    
+    temp = request.POST.get('hello_world_input')
+    # DB를 구성한 모델을 가져온다. 
+    
+    
+    new_hello_world = HelloWorld()
+    #POST로 받아온 값을 DB에 추가해준다.
+    #new_hello_world 인스턴스의 text에 temp를 저장 
+    new_hello_world.text = temp
+    new_hello_world.save()
+            return render(request,'accountapp/hello_world.html',context={'hello_world_output': new_hello_world})
+    
+    ```
+
+    ![0404_POST_TEST](TIL.assets/0404_POST_TEST.PNG)
+
+  - Model에 있는 데이터 출력
+
+  ```python
+  ## Html
+      {% if hello_world_list %}
+      {% comment %} hello_world_output의 텍스트를 출력  {% endcomment %}
+        <h1>{{hello_world_list}}</h1>
+      {% endif %}
+      
+  #views.py
+  # DB의 모든 객체 
+  hello_world_list = HelloWorld.objects.all()
+  return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
+      # POST 요청을 받으면 POST MEHTOD 표시 
+      else :
+  return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
+  ```
+
+  ![0404_obects.all()](TIL.assets/0404_obects.all().PNG)

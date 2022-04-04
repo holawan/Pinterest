@@ -17,15 +17,17 @@ def hello_world(request) :
         temp = request.POST.get('hello_world_input')
         # DB를 구성한 모델을 가져온다. 
 
-        
+
         new_hello_world = HelloWorld()
         #POST로 받아온 값을 DB에 추가해준다.
         #new_hello_world 인스턴스의 text에 temp를 저장 
         new_hello_world.text = temp
         new_hello_world.save()
 
-        return render(request,'accountapp/hello_world.html',context={'hello_world_output': new_hello_world})
+        # DB의 모든 객체 
+        hello_world_list = HelloWorld.objects.all()
+        return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
     # POST 요청을 받으면 POST MEHTOD 표시 
     else :
-        return render(request,'accountapp/hello_world.html',context={'text': 'GET METHOD'})
+        return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
 

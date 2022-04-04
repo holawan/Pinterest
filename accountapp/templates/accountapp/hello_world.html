@@ -34,9 +34,11 @@
     {% comment %} 만약 views.py에서 넘어온 hello_world_output이 있다면 {% endcomment %}
     
     
-    {% if hello_world_output %}
-    {% comment %} hello_world_output의 텍스트를 출력  {% endcomment %}
-      <h1>{{hello_world_output.text}}</h1>
+    {% if hello_world_list %}
+    {% comment %} hello_world_list를 돌면서 내부 요소 하니씩 렌더링  {% endcomment %}
+      {% for hello_world in hello_world_list %}
+        <h1>{{hello_world.text}}</h1>
+      {% endfor %}
     {% endif %}
 
   </div>
