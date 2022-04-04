@@ -9,5 +9,10 @@ from django.shortcuts import render
 #     return HttpResponse('Hello world!')
 
 def hello_world(request) :
-    return render(request,'accountapp/hello_world.html')
+    # get 요청을 받으면 get METHOD를 표시 
+    if request.method == "POST" : 
+        return render(request,'accountapp/hello_world.html',context={'text': 'POST METHOD'})
+    # POST 요청을 받으면 POST MEHTOD 표시 
+    else :
+        return render(request,'accountapp/hello_world.html',context={'text': 'GET METHOD'})
 

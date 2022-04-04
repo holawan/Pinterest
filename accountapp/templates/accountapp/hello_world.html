@@ -19,10 +19,13 @@
     <h1>
       testing
     </h1>
-    <div class="testing" style="display: block; width :48px; height : 48px; ">block</div>
-    <div class="testing" style="display: inline; width :3em; height : 3em; ">inline</div>
-    <div class="testing" style="display: inline-block; width :3rem; height : 3rem; ">None</div>
-    <div class="testing" style="display :inline-block; width :30%; height : 30%; ">inline-block</div>
-    <div class="testing" >default</div>
+    {% comment %} 서버에 보내는 요청 명세서 {% endcomment %}
+    <form action="/account/hello_world/" method = "post">
+      {% comment %} post를 보낼때는 꼭 csrf토큰을 보내야함  {% endcomment %}
+      {% csrf_token %}
+      <input type="submit" class="btn btn-primary" value = "POST">
+    </form>
+
+    <h1>{{text}}</h1>
   </div>
 {% endblock content %}
