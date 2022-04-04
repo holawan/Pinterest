@@ -27,6 +27,8 @@ def hello_world(request) :
 
         # DB의 모든 객체 
         hello_world_list = HelloWorld.objects.all()
+        # 경로를 다시 만들어주려면 reverse라는 함수를 써야한다. 
+        #어카운트에 헬로우 월드로 재접속하라 ?
         return HttpResponseRedirect(reverse('accountapp:hello_world'))
     # POST 요청을 받으면 POST MEHTOD 표시 
     else :
