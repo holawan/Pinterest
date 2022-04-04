@@ -16,6 +16,8 @@ def hello_world(request) :
         # request 의 post 중에서 hello_world_input 데이터를 가져오고 tmp에 넣어라
         temp = request.POST.get('hello_world_input')
         # DB를 구성한 모델을 가져온다. 
+
+        
         new_hello_world = HelloWorld()
         #POST로 받아온 값을 DB에 추가해준다.
         #new_hello_world 인스턴스의 text에 temp를 저장 

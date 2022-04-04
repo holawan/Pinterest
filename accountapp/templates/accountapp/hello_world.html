@@ -24,14 +24,20 @@
       {% comment %} post를 보낼때는 꼭 csrf토큰을 보내야함  {% endcomment %}
       {% csrf_token %}
       <div>
-        {% comment %} 새로운 데이터를 구분지을구분자를 name으로 규정 {% endcomment %}
+        {% comment %} 새로운 데이터를 구분자를 name으로 규정 {% endcomment %}
         <input type="text" name="hello_world_input">
       </div>
       <div>
         <input type="submit" class="btn btn-primary" value = "POST">
       </div>
     </form>
+    {% comment %} 만약 views.py에서 넘어온 hello_world_output이 있다면 {% endcomment %}
+    
+    
+    {% if hello_world_output %}
+    {% comment %} hello_world_output의 텍스트를 출력  {% endcomment %}
+      <h1>{{hello_world_output.text}}</h1>
+    {% endif %}
 
-    <h1>{{text}}</h1>
   </div>
 {% endblock content %}
