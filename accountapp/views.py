@@ -1,7 +1,9 @@
-from django.http import HttpResponse, HttpResponseRedirect
+# from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
-from django.urls import reverse
-
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from accountapp.models import HelloWorld
 # Create your views here.
 
@@ -27,9 +29,21 @@ def hello_world(request) :
 
         # 경로를 다시 만들어주려면 reverse라는 함수를 써야한다. 
         #어카운트에 헬로우 월드로 재접속하라 ?
-        return redirect('accountapp:hello_world')
+        return redirect(reverse('accountapp:hello_world'))
     # POST 요청을 받으면 POST MEHTOD 표시 
     else :
         hello_world_list = HelloWorld.objects.all()
         return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
+
+# 장고의 크리에이트 뷰 상속 받기 
+class AccountCreateView(CreateView) :
+    #파라미터 1 무슨 모델 ?
+    model = User
+    # 계정은 중요한 과정이기 때문에 기본적 템플릿을 제공한다.
+    form_class = UserCreationForm
+    # 계정을 만들 때 성공했으면 경로 지정 
+    # reverse_lazy는 
+    success_url = reverse_lazy('accountapp:hello_world')
+    # 회원가입 할 때 볼 HTML 지정 
+    template_name = 'accountapp/create.html'
 

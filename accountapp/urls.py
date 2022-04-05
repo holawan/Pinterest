@@ -5,5 +5,6 @@ from django.urls import path
 #앱네임과 path에 name을 설정해주면 name을 입력했을 때 path로 자동 이동해주는 역할을 할 수 있다.
 app_name = 'accountapp'
 urlpatterns = [
-    path('hello_world/', views.hello_world, name='hello_world')
+    path('hello_world/', views.hello_world, name='hello_world'),
+    path('create/',views.AccountCreateView.as_view(),name='create')
 ]

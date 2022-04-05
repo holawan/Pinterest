@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div style = "text-align: center">
+    {% comment %} accountapp_crate로 연결해라  {% endcomment %}
+    <form action="{% url 'accountapp:create' %}" method = "post">
+      {% csrf_token %}
+      {% comment %} 장고에서 제공하는 기본 폼 사용  {% endcomment %}
+      {{ form }}
+      <input type="submit" class = "btn btn-primary">
+    </form>
+  </div>
+
+{% endblock content %}

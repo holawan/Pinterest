@@ -269,3 +269,99 @@
     - 해결을 위해 render를 하지 않고 그냥 페이지만 반환하게 redirect를 사용해야한다. 
 
   - POST로 데이터를 저장만 시키고, POST를 보내지 않을 때는 그냥 DB의 요소만 나열하게 한다...?
+
+  - render 와 redirect 구분
+
+    두 함수를 헷갈려 혼동하는 경우가 많습니다. 생각 외로 둘의 차이는 명확합니다. `render` 는 템플릿을 불러오고, `redirect` 는 URL로 이동합니다. URL 로 이동한다는 건 그 URL 에 맞는 views 가 다시 실행될테고 여기서 render 를 할지 다시 redirect 할지 결정할 것 입니다. 이 점에 유의해서 사용하신다면 상황에 맞게 사용하실 수 있을 겁니다.
+
+#### 0405
+
+- Form(INPUT) -> Function(DB와 상호작용) -> HTML(OUTPUT)
+
+- Form에서 요청을 보낼 때 현재까지는 제약이 없어 아무나 보낼 수 있었다.
+
+  - 만약 우리가 가상 서버를 실제 서버로 올리면 아무나 글을 쓸 수 있게 하면 안된다.
+  - 따라서 인증 시스템을 구축한다.
+
+- 인증 (최소한의 보안)
+
+  - 우리는 계정이 필요하다.
+  - 계정 앱의 구성
+    - 가입 - 로그인 - 계정정보 - 정보 수정 - 탈퇴 
+
+- CRUD
+
+  - 장고는 CRUD에 최적화되어 있는 앱 중 하나이다.
+  - Class based View (장고)
+    - 클래스에 기반한 모델
+    - Create view (가입)
+    - Read view (계정정보)
+    - Update view (정보 수정)
+    - Delete view (탈퇴)
+    - 장고에서 몇가지 클래스를 상속 받으면 대부분의 기능을 장고가 제공한다.
+  - Function Based View
+    - 함수에 기반한 모델 
+
+- Create view
+
+  - Django에서 제공하는 CreateView를 사용한다
+
+    - ```python
+      class AccountCreateView(CreateView) :
+          #파라미터 1 무슨 모델 ?
+          model = User
+          # 계정은 중요한 과정이기 때문에 기본적 템플릿을 제공한다.
+          form_class = UserCreationForm
+          # 계정을 만들 때 성공했으면 경로 지정 
+          # reverse_lazy는 
+          success_url = reverse_lazy('accountapp:hello_world')
+          # 회원가입 할 때 볼 HTML 지정 
+          template_name = 'accountapp/create.html'
+      ```
+
+  - 파라미터
+
+    - model = User
+
+      - first_name,last_name, email, is_staff 등이 이미 설정되어 있는 상태로 제공된다.
+
+      ```python
+      username = models.CharField(
+              _('username'),
+              max_length=150,
+              unique=True,
+              help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+              validators=[username_validator],
+              error_messages={
+                  'unique': _("A user with that username already exists."),
+              },
+          )
+          first_name = models.CharField(_('first name'), max_length=150, blank=True)
+          last_name = models.CharField(_('last name'), max_length=150, blank=True)
+          email = models.EmailField(_('email address'), blank=True)
+          is_staff = models.BooleanField(
+              _('staff status'),
+              default=False,
+              help_text=_('Designates whether the user can log into this admin site.'),
+          )
+      ```
+
+    - form_class = UserCreationForm
+
+      - password 입력, 확인 등 검증 작업을 할 수 있다.
+
+- django 기본 회원가입 form 이용해서 구현하기
+
+```python
+  <div style = "text-align: center">
+    {% comment %} accountapp_crate로 연결해라  {% endcomment %}
+    <form action="{% url 'accountapp:create' %}" method = "post">
+      {% csrf_token %}
+      {% comment %} 장고에서 제공하는 기본 폼 사용  {% endcomment %}
+      {{ form }}
+      <input type="submit" class = "btn btn-primary">
+    </form>
+  </div>
+```
+
+![0405_django_account_form](TIL.assets/0405_django_account_form.PNG)
