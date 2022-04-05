@@ -371,7 +371,21 @@
   ![0405_Login_view](TIL.assets/0405_Login_view.PNG)
 
 - 로그인과 로그아웃 view를 만들고 Redirect할 경로를 찾아야한다.
+
 - next가 존재하면 next로 간다.
+
 - next가 없으면 setting 안에 있는 Login Redirect_URL로 간다. 
+
 - Login Redirect_URL도 없으면 Default로 가서 에러가 난다. 
+
 - 그래서 경로를 설정해줘야한다. 
+
+- 가장 처음 받는 next 경로를 설정해주고, 
+
+  ```python
+  <a href="{% url 'accountapp:login' %}?next={{request.path}}">
+  {% else %}
+  <a href="{% url 'accountapp:logout' %}?next={{request.path}}">
+  ```
+
+- Login_redirect_url를 설정한다. 
