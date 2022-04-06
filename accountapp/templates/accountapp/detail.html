@@ -13,6 +13,17 @@
         {% comment %} user 이름  {% endcomment %}
         {{ target_user.username }}
       </h2>
+
+      {% comment %} 수정페이지 {% endcomment %}
+      {% comment %} target_user가 지금 유저와 같다면  {% endcomment %}
+      {% if target_user == user %}
+      {% comment %} user 정보수정이 가능한 정보 수정 페이지를 표시  {% endcomment %}
+      <a href="{% url 'accountapp:update' pk=user.pk %}">
+        <p>
+          Change Info
+        </p>
+      </a>
+      {% endif %}
     </div>
   </div>
 {% endblock content %}

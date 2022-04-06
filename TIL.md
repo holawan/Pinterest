@@ -459,4 +459,54 @@ class AccountDetailView(DetailView) :
 - 아니 다른 사람이 내 정보를 왜보는거지.... 인스타 피드 같은 느낌이라한다 일단 ^^
 
 - context_object_name
+
   - 뷰에서 템플릿 파일에 전달하는 컨텍스트 변수명을 지정한다.
+
+    ![0406_mypage](TIL.assets/0406_mypage.PNG)
+
+### Update View
+
+- 기본적으로 회원정보 수정이기 때문에 CreateView와 유사함 
+
+```python
+class AccountUpdateView(UpdateView) :
+    model = User
+    form_class = UserCreationForm
+    success_url = reverse_lazy('accountapp:hello_world')
+    # 정보수정할 때  할 때 볼 HTML 지정 
+    template_name = 'accountapp/update.html'
+```
+
+```html
+#updateview
+    <div class="mb-4">
+      <h4>Change Info</h4> </div>
+    <form action="{% url 'accountapp:update' user.pk %}" method = "post">
+      {% csrf_token %}
+      {% comment %} 장고에서 제공하는 기본 폼 사용  {% endcomment %}
+      {% bootstrap_form form%}
+      <input type="submit" class = "btn btn-primary">
+    </form>
+  </div>
+```
+
+
+
+- 다만, CreateForm를 그대로 사용하면 ID도 변경할 수 있게 나타남 
+
+![0406_updateview](TIL.assets/0406_updateview.PNG)
+
+- 일반적으로 ID는 변경 불가능하게 한다. 따라서 이를 비활성화하기 위해 UserCreateionForm이 아닌 새로운 Form을 이용한다.
+- 새로운 forms.py를 만들어서 UserCreationForm을 상속받아 ID만 변경 불가능하게 만든다.
+
+```python
+from django.contrib.auth.forms import UserCreationForm
+
+class AccountUpdateForm(UserCreationForm) :
+    def __init__(self,*args,**kwargs) :
+        super().__init__(*args, **kwargs) 
+        # id를 변경 불가능하게 한다. 
+        self.fields['username'].disabled = True 
+```
+
+![0406_updateview2](TIL.assets/0406_updateview2.PNG)
