@@ -1,49 +1,53 @@
 ## 오늘 배운점 
 
-### 0330
+## 0330
 
-- Django
-  - 다양한 앱을 django 내부에서 만들고 앱마다 자체적으로 가지고 있는 Front-end파일을 구축한다. 
-  - 그리고 해당 앱을 엮어서 웹 서비스를 구축한다.
-  - Django가 모여서  Docker의 컨테이너가 된다. 
-  
-- Docker
-  - Django 컨테이너는 Django서비스의 일, MariaDB는 DB관련 일, Nginx는 서버 관련 일을 나눠서 진행한다. (MVC?)
-  - 이들이 모여서 Docker 시스템을 구축한다. 
-  - Docker를 구축하면 Vultr로 서버에 도커를 올린다.(AWS도 이용 가능)
-  
-- MTV 패턴 
-  - Model
-    - 모델은 장고와 데이터베이스가 통신하게 도와주는 도구이다. 
-    - 객체를 만드는데 유저가 새로 가입하면 객체가 생김, 유저가 게시글을 쓰는 것도 객체. 
-    - 데이터베이스에는 Row, columns가 있다. 
-      - Article이라는 게시글이 있으면 그 안에 Title,article,image가 있는데 이가 DB에서는 Columns로 매칭된다. 
-      - 모델을 설정하면 CRUD는 장고가 다 해준다. 
-  - View
-    - 장고의 계산을 담당하는 부분 
-    - User가 Server에 Request를 보내면 Server는 응답을 위한 절차를 거친다. 그리고 응답을 보낸다. 
-      - ex) 유저 로그인 ,유저가 보낸 요청이 유효한지, DB에서 가져오는 과정, 유저에게 되돌려주는 과정 
-  - Template
-    - 실질적으로 보이는 Front-end요소 
-    - 유저는 웹사이트의 visual을 보는데 그 내부를 어떻게 구현하고 생성할 것인지 보여주는 방법 
-      - ex) 유저가 게시글을 보고 싶을 때, HTML을 동적으로 반환 
-  
-- GIT 
-  - Version Control System
-  - 개발을 계속해서 진행할 때, 버전을 업데이트할텐데 버전 차이에서 문제나 필요를 해결해주는 역할을 할 수 있다.
-  - git은 필수 ! 
-    - 예를 들어 1.1부터 1.3까지 개발을 하게 되는데 1.3에서 에러가 생겼을 때, 롤백을 할 수 있다. 1.2로 
-  - Branch
-    - Main branch로 배포를 할 때, 1.1,1.2로 올라갈 때 추가적인 기능을 구현하고 싶을 수 있다. 기존에 영향을 주지 않으면서
-    - 그럴 때 브랜치를 새로 파서 새로운 기능을 넣고 배포버전에 Merge로 합칠 수 있다. 
-    - 팀워크를 할 때 커밋을 통해 누가 올렸는지 확인할 수 있고, 온라인 깃 저장소를 통해 오픈소스를 올려서 모두가 볼 수 있게하고 이슈를 개선할 수 있게한다. 
-  - Command
-    - add 
-    - commit 
-    - push
-    - pull
-    - branch
-    - checkout
+### Django
+
+- 다양한 앱을 django 내부에서 만들고 앱마다 자체적으로 가지고 있는 Front-end파일을 구축한다. 
+- 그리고 해당 앱을 엮어서 웹 서비스를 구축한다.
+- Django가 모여서  Docker의 컨테이너가 된다. 
+
+#### Docker
+
+- Django 컨테이너는 Django서비스의 일, MariaDB는 DB관련 일, Nginx는 서버 관련 일을 나눠서 진행한다. (MVC?)
+- 이들이 모여서 Docker 시스템을 구축한다. 
+- Docker를 구축하면 Vultr로 서버에 도커를 올린다.(AWS도 이용 가능)
+
+#### MTV 패턴 
+
+- Model
+  - 모델은 장고와 데이터베이스가 통신하게 도와주는 도구이다. 
+  - 객체를 만드는데 유저가 새로 가입하면 객체가 생김, 유저가 게시글을 쓰는 것도 객체. 
+  - 데이터베이스에는 Row, columns가 있다. 
+    - Article이라는 게시글이 있으면 그 안에 Title,article,image가 있는데 이가 DB에서는 Columns로 매칭된다. 
+    - 모델을 설정하면 CRUD는 장고가 다 해준다. 
+- View
+  - 장고의 계산을 담당하는 부분 
+  - User가 Server에 Request를 보내면 Server는 응답을 위한 절차를 거친다. 그리고 응답을 보낸다. 
+    - ex) 유저 로그인 ,유저가 보낸 요청이 유효한지, DB에서 가져오는 과정, 유저에게 되돌려주는 과정 
+- Template
+  - 실질적으로 보이는 Front-end요소 
+  - 유저는 웹사이트의 visual을 보는데 그 내부를 어떻게 구현하고 생성할 것인지 보여주는 방법 
+    - ex) 유저가 게시글을 보고 싶을 때, HTML을 동적으로 반환 
+
+#### GIT 
+
+- Version Control System
+- 개발을 계속해서 진행할 때, 버전을 업데이트할텐데 버전 차이에서 문제나 필요를 해결해주는 역할을 할 수 있다.
+- git은 필수 ! 
+  - 예를 들어 1.1부터 1.3까지 개발을 하게 되는데 1.3에서 에러가 생겼을 때, 롤백을 할 수 있다. 1.2로 
+- Branch
+  - Main branch로 배포를 할 때, 1.1,1.2로 올라갈 때 추가적인 기능을 구현하고 싶을 수 있다. 기존에 영향을 주지 않으면서
+  - 그럴 때 브랜치를 새로 파서 새로운 기능을 넣고 배포버전에 Merge로 합칠 수 있다. 
+  - 팀워크를 할 때 커밋을 통해 누가 올렸는지 확인할 수 있고, 온라인 깃 저장소를 통해 오픈소스를 올려서 모두가 볼 수 있게하고 이슈를 개선할 수 있게한다. 
+- Command
+  - add 
+  - commit 
+  - push
+  - pull
+  - branch
+  - checkout
 
 - environ
 
@@ -105,25 +109,24 @@
   #원하는 만큼 커밋을 없앨 수 있다. 
   ```
 
+## 0331
 
-### 0331
+### HTML 
 
-- HTML 
+- 장고에서는 extends와 include를 많이 쓴다. 용도가 살짝 다르다
+  - extends : 미리 만들어놓은 HTML 템플릿을 가져와서 블록을 이용해 내용을 채워나간다. (바탕을 깔아준다. )
+  - include : 조각을 가져와서 HTML에 추가한다. (더미를 가져와서 붙여준다. )
+  - 즉, extends로 바탕을 만들고 include로 내용을 채워준다! 
+- HTML 뼈대 자체는 base로 만들고 head는 앱마다 다를 수 있기 때문에 따로 템플릿을 만들어서 include로 쓸 수 있다.
+- header와 footer도 재사용하고, body부분만 수정할 것이기 때문에 include로 빼준다.
+- border-radius는 블록의 가장자리에 공유를 줘서 부드럽게 만드는 것
+- base.html은 이제 베이스로 쓰고 앱 내부에 templates를 만든다.
+  - templates 내부에 앱 이름과 같은 폴더를 다시 만들고 html파일을 그 안에 넣는데 그 이유는 앱 내부의  템플릿에서 html을 가져올 때, 어떤 앱에서 html을 가져왔는지 가독성 있게 확인할 수 있다.
+- 마진에 값을 두개 넣어주면 앞에는 상하, 뒤에는 좌우
 
-  - 장고에서는 extends와 include를 많이 쓴다. 용도가 살짝 다르다
-    - extends : 미리 만들어놓은 HTML 템플릿을 가져와서 블록을 이용해 내용을 채워나간다. (바탕을 깔아준다. )
-    - include : 조각을 가져와서 HTML에 추가한다. (더미를 가져와서 붙여준다. )
-    - 즉, extends로 바탕을 만들고 include로 내용을 채워준다! 
-  - HTML 뼈대 자체는 base로 만들고 head는 앱마다 다를 수 있기 때문에 따로 템플릿을 만들어서 include로 쓸 수 있다.
-  - header와 footer도 재사용하고, body부분만 수정할 것이기 때문에 include로 빼준다.
-  - border-radius는 블록의 가장자리에 공유를 줘서 부드럽게 만드는 것
-  - base.html은 이제 베이스로 쓰고 앱 내부에 templates를 만든다.
-    - templates 내부에 앱 이름과 같은 폴더를 다시 만들고 html파일을 그 안에 넣는데 그 이유는 앱 내부의  템플릿에서 html을 가져올 때, 어떤 앱에서 html을 가져왔는지 가독성 있게 확인할 수 있다.
-  - 마진에 값을 두개 넣어주면 앞에는 상하, 뒤에는 좌우
-
-  ``` html
-   margin : 2rem 0;
-  ```
+``` html
+ margin : 2rem 0;
+```
 
 - 구글 폰트 적용하는 법 
 
@@ -152,12 +155,12 @@
   - STATIC 폴더 안에 CSS파일을 만들고, head에서 링크를 받게한다. 
   - 공통된 요소들은 가시성 있게 클래스로 만들고 style을 css파일에서 준다. 
 
-### 0404
+## 0404
 
-- CSS 
+### CSS 
 
-  - Cascading Style Sheet 
-  - CSS 우선 순위는 인라인 --> 내장 -> 링크 순서 
+- Cascading Style Sheet 
+- CSS 우선 순위는 인라인 --> 내장 -> 링크 순서 
 
 - DISPLAY
 
@@ -188,9 +191,9 @@
     - 1rem은 16px
   - %
     - 바로 위 부모 영향만 받는다 
-  
+
   ![0404_디스플레이연습](TIL.assets/0404_디스플레이연습.PNG)
-  
+
 - Model
 
   - 장고에서 데이터베이스 사용이 편하도록 연동을 해주는 역할 
@@ -274,7 +277,9 @@
 
     두 함수를 헷갈려 혼동하는 경우가 많습니다. 생각 외로 둘의 차이는 명확합니다. `render` 는 템플릿을 불러오고, `redirect` 는 URL로 이동합니다. URL 로 이동한다는 건 그 URL 에 맞는 views 가 다시 실행될테고 여기서 render 를 할지 다시 redirect 할지 결정할 것 입니다. 이 점에 유의해서 사용하신다면 상황에 맞게 사용하실 수 있을 겁니다.
 
-#### 0405
+## 0405
+
+### Form
 
 - Form(INPUT) -> Function(DB와 상호작용) -> HTML(OUTPUT)
 
@@ -401,3 +406,57 @@
 - 다른 url로 이동해줘 그럼 다른 url이 view에 요청을 보내 그럼 url이 render로 다시 보내줄거야 
 - 만약 html을 직접 렌더링하지 않는 create나 delete 함수를 views.py에서 사용할때는 redirect를 사용해야한다.
 - render를 사용하면 보여줄 html이 없기도 하고, html을 직접 렌더한다면 url이 꼬임 
+
+
+
+## 0406
+
+### Bootstrap
+
+- Django에서 부트스트랩을 설치하려면 먼저 pip install을 해준다.
+
+```
+pip install django-bootstrap4
+```
+
+- Seetings.py에 등록해준다.
+- 쓰고 싶은 html에 로드해준다. (스태틱처럼)
+
+```html
+{% load bootstrap4 %}
+```
+
+- form에 사용하려면
+
+```html
+{% bootstrap_form form %}
+```
+
+### CSS 스타일 변경이 즉시 작용되지 않을 때 
+
+- **방법 1. 브라우저 캐시 삭제**
+  - 경로 : 크롬 > 설정 > 개인정보 및 보안 > 쿠키 및 기타 사이트 데이터 > 모든 쿠키 및 사이트 데이터 보기 > 모두 삭제
+
+- **방법 2. 링크 코드의 URL 변경**
+  - CSS 파일을 링크하는 HTML 파일(PHP, JSP)을 열어 기존 CSS 파일의 URL 뒤에 **?after**를 붙이기
+
+
+
+### Detail view
+
+- 장고에서는 Detail View라고 한다. 다른데서는 Readview라고도 하는 모양
+
+- DetailView 클래스를 상속 받아서 진행한다.
+
+```python
+class AccountDetailView(DetailView) :
+    model = User 
+    template_name = 'accountapp/detail.html'
+```
+
+- url에는 유저마다 세부 정보를 받아와야하니까 pk를 추가적으로 넣어준다.
+- 클래스 내부에 target_user를 설정해야 하는데, 이는 다른 사람이 내 페이지를 들어왔을 때 내 페이지가 보이게 한다. target_user를 설정하지 않으면, 다른 사람이 my_page에 접근해도 그 사람 정보가 나타나게 된다..?
+- 아니 다른 사람이 내 정보를 왜보는거지.... 인스타 피드 같은 느낌이라한다 일단 ^^
+
+- context_object_name
+  - 뷰에서 템플릿 파일에 전달하는 컨텍스트 변수명을 지정한다.

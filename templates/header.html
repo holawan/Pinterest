@@ -17,6 +17,9 @@
     </a>
     {% comment %} 아니라면 로그아웃을 보여줘라 {% endcomment %}
     {% else %}
+    <a href="{% url 'accountapp:detail' pk=user.pk%}">
+      <span>MyPage</span>
+    </a>
     <a href="{% url 'accountapp:logout' %}?next={{request.path}}">
       <span>logout</span>
     </a>

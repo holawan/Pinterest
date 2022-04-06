@@ -1,7 +1,7 @@
 # from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView,DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from accountapp.models import HelloWorld
@@ -47,3 +47,7 @@ class AccountCreateView(CreateView) :
     # 회원가입 할 때 볼 HTML 지정 
     template_name = 'accountapp/create.html'
 
+class AccountDetailView(DetailView) :
+    model = User 
+    context_object_name = 'target_user'
+    template_name = 'accountapp/detail.html'
