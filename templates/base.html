@@ -2,22 +2,23 @@
 <html lang="ko">
 
 
-{% include 'head.html' %}
+  {% include 'head.html' %}
 
-<body>
-  {% comment %} border-radius는 블록의 가장자리에 공유를 줘서 부드럽게 만드는 것   {% endcomment %}
-  {% include 'header.html' %}
-   
-  <hr>
-  {% block content %}
-  
-  {% endblock content %}
+  <body style = "font-family: 'NanumGaRamYeonGgoc';">
+    {% comment %} border-radius는 블록의 가장자리에 공유를 줘서 부드럽게 만드는 것   {% endcomment %}
+    {% include 'header.html' %}
+    
+    <hr>
+    <div style ="">
+    {% block content %}
 
+    {% endblock content %}
+    </div>
 
-  <hr>
-  {% include 'footer.html' %}
-  
+    <hr>
+    {% include 'footer.html' %}
+    
 
-  
-</body>
+    
+  </body>
 </html>
