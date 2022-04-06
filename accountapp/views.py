@@ -1,7 +1,7 @@
 # from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView,DetailView,UpdateView
+from django.views.generic import CreateView,DetailView,UpdateView,DeleteView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from accountapp.forms import AccountUpdateForm
@@ -65,3 +65,8 @@ class AccountUpdateView(UpdateView) :
     success_url = reverse_lazy('accountapp:hello_world')
     # 정보수정할 때  할 때 볼 HTML 지정 
     template_name = 'accountapp/update.html'
+
+class AccountDeleteView(DeleteView) :
+    model = User 
+    success_url = reverse_lazy('accountapp:login')
+    template_name = 'accountapp/delete.html'
