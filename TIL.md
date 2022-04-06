@@ -540,3 +540,50 @@ class AccountDeleteView(DeleteView) :
 ```
 
 ![0406_deleteview](TIL.assets/0406_deleteview.PNG)
+
+### git reset 취소
+
+- 오늘 리셋 잘못했다가 요단강 건널 뻔함 
+  - 이유 커밋 한 번에 할려고;
+
+먼저 reset부터 
+
+### reset
+
+```python
+git log --oneline
+```
+
+하면 정보가 나온다. 
+
+![gitlog](TIL.assets/gitlog.PNG)
+
+
+
+여기서 위에서 2번째 커밋을 취소하고 싶으면 이렇게 치면된다.  
+
+```python
+git reset --hard 2a4978e
+```
+
+### 주의사항 
+
+- 커밋을 취소하면 그 때까지 타이핑 했던 것들도 커밋 이전으로 다 파일이 돌아간다. 
+
+#### 취소
+
+```python
+$git reflog 
+```
+
+ ![gitreflog](TIL.assets/gitreflog.PNG)
+
+이렇게 나오는데, 나는 HEAD{3}에서 리셋을 잘못해서 파일이 다 날라가서 HEAD 4로 갔어야했다.
+
+그러면 
+
+```python
+git reset --hard HEAD@{4}
+```
+
+이렇게 치면 된다. 
