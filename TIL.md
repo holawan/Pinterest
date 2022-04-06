@@ -389,3 +389,15 @@
   ```
 
 - Login_redirect_url를 설정한다. 
+
+
+
+### Render
+
+- html 파일을 브라우저에게 보여줌
+
+### Redirect
+
+- 다른 url로 이동해줘 그럼 다른 url이 view에 요청을 보내 그럼 url이 render로 다시 보내줄거야 
+- 만약 html을 직접 렌더링하지 않는 create나 delete 함수를 views.py에서 사용할때는 redirect를 사용해야한다.
+- render를 사용하면 보여줄 html이 없기도 하고, html을 직접 렌더한다면 url이 꼬임 

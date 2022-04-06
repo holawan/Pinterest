@@ -2,6 +2,16 @@
 
 ### PINTEREST 만들기
 
+- 각 일자별로 학습한 내용은 TIL.md에 저장되어있습니다.
+
+## 사용언어
+
+- Python
+- Django
+- HTML
+- CSS
+- MariaDB
+
 
 
 ### 0330
@@ -38,7 +48,6 @@
 
 - 생각보다 강의가 너무 어렵다. 진짜 클론코딩으로 따라치는 기분이다 ㅠㅠ 따로 공부를 해야지
 - 현재 회원가입 기능 로그인 기능을 만들었는데, 장고에서 다 제공을해준다... 이거 완전 개꿀이다. 
-
 - 문제 사항으로는 django에서 Class 기반 CRUD들이 자동으로 import가 안된다.. 나름 따라치는 것도 좋지만 문제를 해결해야할 것 같다.
 - reverse,reverse_lazy 공부하기, next, login_redirect_url 공부하기, class를 url에서 사용할 때 as_view 왜하는지 알아보기 
-- 
+

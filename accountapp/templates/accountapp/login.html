@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-
+{% comment %} django bootstrap을 사용하려면 settings.py에 추가 후 load {% endcomment %}
+{% load bootstrap4 %}
 
 {% block content %}
 
-  <div style ="text-align:center">
-      <div>
+  <div style ="text-align:center; max-width: 500px; margin: 4rem auto;">
+      <div class = "mb-3">
 
         <h4>Login</h4>
       </div>
@@ -12,8 +13,11 @@
         <form action="" method = "post">
           {% csrf_token %}
           {% comment %} 장고 기본 login form 사용  {% endcomment %}
-          {{form}}
-          <input type="submit" class="btn btn-primary">
+          {% comment %} {{ form }} {% endcomment %}
+          {% comment %} Bootstrap form 사용하기 {% endcomment %}
+          {% bootstrap_form form %}
+          {% comment %} 알약 모양으로 버튼 만들고 부트스트랩의 총 12너비중 6너비를 차지하게, 마진을 4배로 {% endcomment %}
+          <input type="submit" class="btn btn-dark rounded-pill col-3 mt-4">
         </form>
       </div>
   </div>
