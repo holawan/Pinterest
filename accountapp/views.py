@@ -33,7 +33,7 @@ def hello_world(request) :
         return redirect(reverse('accountapp:hello_world'))
     # POST 요청을 받으면 POST MEHTOD 표시 
     else :
-        hello_world_list = HelloWorld.objects.all()
+        hello_world_list = HelloWorld.objects.all()[::-1]
         return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
 
 # 장고의 크리에이트 뷰 상속 받기 

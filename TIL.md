@@ -510,3 +510,33 @@ class AccountUpdateForm(UserCreationForm) :
 ```
 
 ![0406_updateview2](TIL.assets/0406_updateview2.PNG)
+
+### Delete View
+
+- Delete View를 이용한다.
+- detail.html에 delete 기능을 만들어서 만약 본인이라면 탈퇴 버튼이 보이게 한다.
+- 삭제 버튼을 누르면 삭제된다.
+
+```python
+#views.py
+class AccountDeleteView(DeleteView) :
+    model = User 
+    success_url = reverse_lazy('accountapp:login')
+    template_name = 'accountapp/delete.html'
+    
+#delete.html
+<form action="{% url 'accountapp:delete' pk=user.pk %}" method = "post">
+
+#detail.html
+ {% if target_user == user %}
+    {% comment %} user 정보수정이 가능한 정보 수정 페이지를 표시  {% endcomment %}
+    <a href="{% url 'accountapp:update' pk=user.pk %}">
+    <p>
+    Change Info
+    </p>
+    </a>
+    <a href="{% url 'accountapp:delete' pk=user.pk %}">
+    <p>Quit</p>
+```
+
+![0406_deleteview](TIL.assets/0406_deleteview.PNG)
