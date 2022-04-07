@@ -604,7 +604,7 @@ git push -f
 
 ### 인증과정만들기
 
-- 기존 과정에서는 로그인을 하지 않아도 url을 통해 update에 접근할 수 있었다.
+- 기존 과정에서는 로그인을 하지 않아도 url을 통해 update나 delete를 할 수 있었다.
 - 따라서 user가 인증되어있을때만 접근할 수 있게 변경한다. 
 
 ```python
@@ -628,5 +628,26 @@ class AccountUpdateView(UpdateView) :
             return super().get(*args,**kwargs)
         else :
             return HttpResponseRedirect(reverse('accountapp:login'))
+```
+
+- 이렇게 구성하면 로그인 하지 않은 유저는 거를 수 있지만, 로그인 되어있으면 누구나 본인의 정보는 물론 다른 사람의 정보를 변경 및 삭제할 수 있다. 
+- 따라서 서버에 update를 요청한 유저가 현재 로그인 되어있는 유저일때만 변경을 하게 하고, 아니라면 403에러를 표시하게 한다.
+
+```python
+    def get(self,*args, **kwargs) :
+
+        # 로그인이 되어있으면서, pk 로 update를 request한 유저가 현재 로그인 한 유저와 같으면 
+        if self.request.user.is_authenticated and self.get_object() == self.request.user :
+            return super().get(*args,**kwargs)
+        #같지 않다면 금지된 곳으로 온것으로 반응을 보낸다.
+        else :
+            return HttpResponseForbidden()
+            
+    def post(self,*args, **kwargs) :
+
+        if self.request.user.is_authenticated and self.get_object() == self.request.user  :
+            return super().get(*args,**kwargs)
+        else :
+            return HttpResponseForbidden()
 ```
 

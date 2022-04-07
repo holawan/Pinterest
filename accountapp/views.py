@@ -1,5 +1,5 @@
 # from django.http import HttpResponse, HttpResponseRedirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView,DetailView,UpdateView,DeleteView
@@ -78,18 +78,19 @@ class AccountUpdateView(UpdateView) :
 
     def get(self,*args, **kwargs) :
 
-        if self.request.user.is_authenticated :
+        # 로그인이 되어있으면서, pk 로 update를 request한 유저가 현재 로그인 한 유저와 같으면 
+        if self.request.user.is_authenticated and self.get_object() == self.request.user :
             return super().get(*args,**kwargs)
+        #같지 않다면 금지된 곳으로 온것으로 반응을 보낸다.
         else :
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()
             
     def post(self,*args, **kwargs) :
 
-        if self.request.user.is_authenticated :
+        if self.request.user.is_authenticated and self.get_object() == self.request.user  :
             return super().get(*args,**kwargs)
         else :
-            return HttpResponseRedirect(reverse('accountapp:login'))
-
+            return HttpResponseForbidden()
 
 class AccountDeleteView(DeleteView) :
     model = User 
@@ -98,14 +99,14 @@ class AccountDeleteView(DeleteView) :
     template_name = 'accountapp/delete.html'
     def get(self,*args, **kwargs) :
 
-        if self.request.user.is_authenticated :
+        if self.request.user.is_authenticated and self.get_object() == self.request.user  :
             return super().get(*args,**kwargs)
         else :
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()
             
     def post(self,*args, **kwargs) :
 
-        if self.request.user.is_authenticated :
+        if self.request.user.is_authenticated and self.get_object() == self.request.user  :
             return super().get(*args,**kwargs)
         else :
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()
