@@ -651,3 +651,77 @@ class AccountUpdateView(UpdateView) :
             return HttpResponseForbidden()
 ```
 
+
+
+### Decorator
+
+- 파이썬에서 제공하는 기능, 가독성을 해치는 것을 막기 위해 사용함 @decorator 형태 
+
+- 위에서 로그인여부에 따라 막는 코드를 일일이 칠 필요 없이 django에서 제공하는 login_required만 함수 앞에 써주면 그대로 구현할 수 있다.
+
+#### 쓰기 전 
+
+```python
+def hello_world(request) :
+    if request.user.is_authenticated :
+        if request.method == "POST" : 
+            temp = request.POST.get('hello_world_input')
+            new_hello_world = HelloWorld()
+            new_hello_world.text = temp
+            new_hello_world.save()
+            return redirect(reverse('accountapp:hello_world'))
+        
+        else :
+            hello_world_list = HelloWorld.objects.all()[::-1]
+            return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
+    else :
+        return HttpResponseRedirect(reverse('accountapp:login'))
+```
+
+#### 쓴 후 
+
+```python
+@login_required
+def hello_world(request) :
+    if request.method == "POST" : 
+        temp = request.POST.get('hello_world_input')
+        new_hello_world = HelloWorld()
+        new_hello_world.text = temp
+        new_hello_world.save()
+        return redirect(reverse('accountapp:hello_world'))
+    
+    else :
+        hello_world_list = HelloWorld.objects.all()[::-1]
+        return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
+```
+
+#### 클래스의 경우
+
+- 클래스의 경우는 함수와 똑같이 @login_required를 적어도 작동하지 않는다. 
+- 따라서 @method_decorator에 인자를 넣어줘서 적용한다.
+
+#### 사용 전
+
+```python
+class AccountUpdateView(UpdateView) :
+    model = User
+    form_class = AccountUpdateForm
+    success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'accountapp/update.html'
+    context_object_name = 'target_user'
+
+    def get(self,*args, **kwargs) :
+        # 로그인이 되어있으면서, pk 로 update를 request한 유저가 현재 로그인 한 유저와 같으면 
+        if self.request.user.is_authenticated and self.get_object() == self.request.user :
+            return super().get(*args,**kwargs)
+        #같지 않다면 금지된 곳으로 온것으로 반응을 보낸다.
+        else :
+            return HttpResponseForbidden()        
+    def post(self,*args, **kwargs) :
+
+        if self.request.user.is_authenticated and self.get_object() == self.request.user  :
+            return super().get(*args,**kwargs)
+        else :
+            return HttpResponseForbidden()
+```
+
