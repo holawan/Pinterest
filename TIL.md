@@ -769,3 +769,27 @@ has_ownership = [account_ownership_required,login_required]
 @method_decorator(has_ownership,'get')
 ```
 
+
+
+### Profile Setting
+
+- superuser 만들기
+
+  ```python
+  python manage.py cratesuperuser
+  ```
+
+  ID, 비밀번호 입력
+
+- media 세팅하기 
+
+  - media url : 주소창에 media이하 경로로 접근해야 실제로 미디어에 접근 가능
+  - media root : 미디어파일을 서버에 올렸을 때 서버 어느 경로에 지정될 것인지 그 루트가 어디인진가에 대한 정보
+    - 우리가 파일을 서버에 올리면 프로젝트 내부에 meida 디렉토리가 생기면서 media가 거기에 저장됨 
+
+```python
+MEDIA_URL = '/media1/'
+#ex) 127.8.8.1:8880/media1/test.jpg
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+```
+
