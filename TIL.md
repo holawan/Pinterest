@@ -597,3 +597,36 @@ git push -f
 ```
 
 해야한다 컨플릭트나니까 .,.
+
+
+
+## 0407
+
+### 인증과정만들기
+
+- 기존 과정에서는 로그인을 하지 않아도 url을 통해 update에 접근할 수 있었다.
+- 따라서 user가 인증되어있을때만 접근할 수 있게 변경한다. 
+
+```python
+class AccountUpdateView(UpdateView) :
+    model = User
+    form_class = AccountUpdateForm
+    success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'accountapp/update.html'
+    context_object_name = 'target_user'
+
+    def get(self,*args, **kwargs) :
+
+        if self.request.user.is_authenticated :
+            return super().get(*args,**kwargs)
+        else :
+            return HttpResponseRedirect(reverse('accountapp:login'))
+            
+    def post(self,*args, **kwargs) :
+
+        if self.request.user.is_authenticated :
+            return super().get(*args,**kwargs)
+        else :
+            return HttpResponseRedirect(reverse('accountapp:login'))
+```
+

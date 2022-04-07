@@ -76,8 +76,36 @@ class AccountUpdateView(UpdateView) :
     template_name = 'accountapp/update.html'
     context_object_name = 'target_user'
 
+    def get(self,*args, **kwargs) :
+
+        if self.request.user.is_authenticated :
+            return super().get(*args,**kwargs)
+        else :
+            return HttpResponseRedirect(reverse('accountapp:login'))
+            
+    def post(self,*args, **kwargs) :
+
+        if self.request.user.is_authenticated :
+            return super().get(*args,**kwargs)
+        else :
+            return HttpResponseRedirect(reverse('accountapp:login'))
+
+
 class AccountDeleteView(DeleteView) :
     model = User 
     context_object_name = 'target_user'
     success_url = reverse_lazy('accountapp:login')
     template_name = 'accountapp/delete.html'
+    def get(self,*args, **kwargs) :
+
+        if self.request.user.is_authenticated :
+            return super().get(*args,**kwargs)
+        else :
+            return HttpResponseRedirect(reverse('accountapp:login'))
+            
+    def post(self,*args, **kwargs) :
+
+        if self.request.user.is_authenticated :
+            return super().get(*args,**kwargs)
+        else :
+            return HttpResponseRedirect(reverse('accountapp:login'))
