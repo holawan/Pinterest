@@ -65,8 +65,10 @@ class AccountUpdateView(UpdateView) :
     success_url = reverse_lazy('accountapp:hello_world')
     # 정보수정할 때  할 때 볼 HTML 지정 
     template_name = 'accountapp/update.html'
+    context_object_name = 'target_user'
 
 class AccountDeleteView(DeleteView) :
     model = User 
+    context_object_name = 'target_user'
     success_url = reverse_lazy('accountapp:login')
     template_name = 'accountapp/delete.html'

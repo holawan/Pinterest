@@ -7,7 +7,7 @@
 
     <div class="mb-4">
       <h4>Change Info</h4> </div>
-    <form action="{% url 'accountapp:update' user.pk %}" method = "post">
+    <form action="{% url 'accountapp:update' target_user.pk %}" method = "post">
       {% csrf_token %}
       {% comment %} 장고에서 제공하는 기본 폼 사용  {% endcomment %}
       {% bootstrap_form form%}

@@ -587,3 +587,13 @@ git reset --hard HEAD@{4}
 ```
 
 이렇게 치면 된다. 
+
+
+
+#### 만약 push 까지 해버렸다면, push 할 때
+
+```python
+git push -f
+```
+
+해야한다 컨플릭트나니까 .,.
