@@ -47,9 +47,8 @@ def text_delete(request,pk) :
         text =  HelloWorld.objects.get(pk=pk) 
         text.delete()
     return redirect('accountapp:hello_world')
+
 # 장고의 크리에이트 뷰 상속 받기 
-
-
 class AccountCreateView(CreateView) :
     #파라미터 1 무슨 모델 ?
     model = User

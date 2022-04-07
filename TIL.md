@@ -139,16 +139,41 @@
 - STATIC
 
   - https://docs.djangoproject.com/ko/4.0/howto/static-files/
-  - STATIC_ROOT 설정 
+
+  - 베이스 디렉토리는 settings.py 경로에서 root폴더로 가서 그 폴더를 BASE_DIR로 하겠다.
+
+  - 즉, BASE_DIR 하위에 staticfiles에 추후 스태틱 파일들을 모으겠다.
+
+  - **`STATIC_URL`**
 
   ```python
   STATIC_URL = '/static/'
-  
-  STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
   ```
 
-  2.  베이스 디렉토리는 settings.py 경로에서 root폴더로 가서 그 폴더를 BASE_DIR로 하겠다.
-  3. 즉, BASE_DIR 하위에 staticfiles에 추후 스태틱 파일들을 모으겠다.
+  - STATIC_ROOT에 있는 정적 파일을 참조 할 때 사용할 URL
+  - 개발 단계에서는 실제 정적 파일들이 저장되어 있는 app/static/ 경로 (기본 경로) 및STATICFILES_DIRS에 정의된 추가 경로들을 탐색함
+  - 실제 파일이나 디렉토리가 아니며, URL로만 존재 비어 있지 않은 값으로 설정 한다면 반드시 slash(/)로 끝나야 함
+
+  
+
+  - **`STATIC_ROOT`**
+
+  - collectstatic이 배포를 위해 정적 파일을 수집하는 디렉토리의 절대 경로
+  - django 프로젝트에서 사용하는 모든 정적 파일을 한 곳에 모아 넣는 경로
+  - 개발 과정에서 setting.py의 DEBUG 값이 True로 설정되어 있으면 해당 값은 작용되지 않음
+  - 직접 작성하지 않으면 django 프로젝트에서는 setting.py에 작성되어 있지 않음
+  - 실 서비스 환경(배포 환경)에서 django의 모든 정적 파일을 다른 웹 서버가 직접 제공하기 위함
+
+  > [참고] **collectstatic**
+  >
+  > - 프로젝트 배포 시 흩어져있는 정적 파일들을 모아 특정 디렉토리로 옮기는 작업
+  >
+  > ```python
+  > # settings.py 예시
+  > 
+  > STATIC_ROOT = BASE_DIR / 'staticfiles'
+  > $ python manage.py collectstatic
+  > ```
 
 - CSS
 
@@ -769,9 +794,7 @@ has_ownership = [account_ownership_required,login_required]
 @method_decorator(has_ownership,'get')
 ```
 
-
-
-### Profile Setting
+##### Profile Setting
 
 - superuser 만들기
 
@@ -781,15 +804,42 @@ has_ownership = [account_ownership_required,login_required]
 
   ID, 비밀번호 입력
 
-- media 세팅하기 
+#### Media 세팅
 
-  - media url : 주소창에 media이하 경로로 접근해야 실제로 미디어에 접근 가능
-  - media root : 미디어파일을 서버에 올렸을 때 서버 어느 경로에 지정될 것인지 그 루트가 어디인진가에 대한 정보
-    - 우리가 파일을 서버에 올리면 프로젝트 내부에 meida 디렉토리가 생기면서 media가 거기에 저장됨 
+media 세팅하기 (STATIC과 유사)
+
+- media url : 주소창에 media이하 경로로 접근해야 실제로 미디어에 접근 가능
+- media root : 미디어파일을 서버에 올렸을 때 서버 어느 경로에 지정될 것인지 그 루트가 어디인진가에 대한 정보
+  - 우리가 파일을 서버에 올리면 프로젝트 내부에 meida 디렉토리가 생기면서 media가 거기에 저장됨 
 
 ```python
 MEDIA_URL = '/media1/'
 #ex) 127.8.8.1:8880/media1/test.jpg
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+```
+
+- 장고에서 이미지를 관리하는 라이브러리는 pillow 
+
+### Post 삭제
+
+- 글이 너무 많아서 답답해서 Posting을 삭제하는 기능 구현 
+
+```python
+def text_delete(request,pk) :
+    if request.method == "POST" :
+        text =  HelloWorld.objects.get(pk=pk) 
+        text.delete()
+    return redirect('accountapp:hello_world')
+
+{% if hello_world_list %}
+{% comment %} hello_world_list를 돌면서 내부 요소 하나씩 출력  {% endcomment %}
+{% for hello_world in hello_world_list %}
+<h1>{{hello_world.text}}</h1>
+<form action="{% url 'accountapp:text_delete' hello_world.pk %}" method='POST'>
+{% csrf_token %}
+<input type="submit" class = "btn btn-danger" value="삭제" width="20px">
+</form>
+{% endfor %}
+{% endif %}
 ```
 
