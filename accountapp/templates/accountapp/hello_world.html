@@ -33,15 +33,22 @@
     </form>
     {% comment %} 만약 views.py에서 넘어온 hello_world_output이 있다면 {% endcomment %}
     
-    
+    <hr>
+    <h1 sytle = "text-align :center;">게시글</h1>
+    <hr>
     {% if hello_world_list %}
     {% comment %} hello_world_list를 돌면서 내부 요소 하나씩 출력  {% endcomment %}
       {% for hello_world in hello_world_list %}
-        <h1>{{hello_world.text}}</h1>
-        <form action="{% url 'accountapp:text_delete' hello_world.pk %}" method='POST'>
-          {% csrf_token %}
-          <input type="submit" class = "btn btn-danger" value="삭제" width="20px">
-        </form>
+        <div class="d-flex justify-content-between">
+          <h5>{{hello_world.pk}}번째 글 </h5>
+          <h4 class="col-8">{{hello_world.text}}</h4>
+          <hr>
+          <form action="{% url 'accountapp:text_delete' hello_world.pk %}" method='POST'>
+            {% csrf_token %}
+            <input type="submit" class = "btn btn-danger" value="삭제" width="20px">
+          </form>
+        </div>
+      <hr>
       {% endfor %}
     {% endif %}
 
