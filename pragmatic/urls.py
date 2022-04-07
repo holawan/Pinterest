@@ -19,5 +19,6 @@ from django.urls import path,include
 #앱 내에 urls.py 추가 생성해주기! 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/' , include('accountapp.urls'))
+    path('accounts/' , include('accountapp.urls')),
+    path('profiles/', include('profileapp.urls'))
 ]

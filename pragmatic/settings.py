@@ -42,6 +42,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accountapp',
+    'profileapp',
 
     'bootstrap4',
 
