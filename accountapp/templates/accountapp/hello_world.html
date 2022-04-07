@@ -20,7 +20,7 @@
       Hello World List!
     </h1>
     {% comment %} 서버에 보내는 요청 명세서 {% endcomment %}
-    <form action="/account/hello_world/" method = "post">
+    <form action="/accounts/hello_world/" method = "post">
       {% comment %} post를 보낼때는 꼭 csrf토큰을 보내야함  {% endcomment %}
       {% csrf_token %}
       <div>
@@ -38,6 +38,10 @@
     {% comment %} hello_world_list를 돌면서 내부 요소 하나씩 출력  {% endcomment %}
       {% for hello_world in hello_world_list %}
         <h1>{{hello_world.text}}</h1>
+        <form action="{% url 'accountapp:text_delete' hello_world.pk %}" method='POST'>
+          {% csrf_token %}
+          <input type="submit" class = "btn btn-danger" value="삭제" width="20px">
+        </form>
       {% endfor %}
     {% endif %}
 
