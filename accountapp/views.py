@@ -62,10 +62,9 @@ class AccountDetailView(DetailView) :
     template_name = 'accountapp/detail.html'
 
 # 클래스에 데코레이터를 적용할 수 있는 method_decorator
-@method_decorator(login_required,'get')
-@method_decorator(login_required,'post')
-@method_decorator(account_ownership_required,'get')
-@method_decorator(account_ownership_required,'post')
+@method_decorator(has_ownership,'get')
+@method_decorator(has_ownership,'post')
+
 class AccountUpdateView(UpdateView) :
     #파라미터 1 무슨 모델 ?
     model = User
@@ -78,10 +77,9 @@ class AccountUpdateView(UpdateView) :
     template_name = 'accountapp/update.html'
     context_object_name = 'target_user'
 
-@method_decorator(login_required,'get')
-@method_decorator(login_required,'post')
-@method_decorator(account_ownership_required,'get')
-@method_decorator(account_ownership_required,'post')
+@method_decorator(has_ownership,'get')
+@method_decorator(has_ownership,'post')
+
 class AccountDeleteView(DeleteView) :
     model = User 
     context_object_name = 'target_user'

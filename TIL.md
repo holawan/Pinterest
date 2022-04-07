@@ -698,6 +698,7 @@ def hello_world(request) :
 #### 클래스의 경우
 
 - 클래스의 경우는 함수와 똑같이 @login_required를 적어도 작동하지 않는다. 
+- login_required를 적으면 비로그인 시 수정/삭제 페이지 접근 불가만 만들 수 있다, 추가적으로 아까와 같이 타인의 정보 접근을 막는다.
 - 따라서 @method_decorator에 인자를 넣어줘서 적용한다.
 
 #### 사용 전
@@ -723,5 +724,48 @@ class AccountUpdateView(UpdateView) :
             return super().get(*args,**kwargs)
         else :
             return HttpResponseForbidden()
+```
+
+#### 사용 후 
+
+```python
+@method_decorator(login_required,'get')
+@method_decorator(login_required,'post')
+@method_decorator(account_ownership_required,'get')
+@method_decorator(account_ownership_required,'post')
+class AccountUpdateView(UpdateView) :
+    #파라미터 1 무슨 모델 ?
+    model = User
+    # 계정은 중요한 과정이기 때문에 기본적 템플릿을 제공한다.
+    form_class = AccountUpdateForm
+    # 계정을 만들 때 성공했으면 경로 지정 
+    # reverse_lazy는 
+    success_url = reverse_lazy('accountapp:hello_world')
+    # 정보수정할 때  할 때 볼 HTML 지정 
+    template_name = 'accountapp/update.html'
+    context_object_name = 'target_user'
+```
+
+```python
+#decorator.py
+from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
+def account_ownership_required(func) :
+    def decorated(request,*args, **kwargs) :
+        # 요청을 받으면서 받은 pk를 pk로 가지고 있는 userobject
+        user = User.objects.get(pk=kwargs['pk'])
+        if user != request.user :
+            return HttpResponseForbidden()
+        return func(request,*args,**kwargs)
+    return decorated
+```
+
+#### 추가
+
+- 추가적으로 decorator를 리스트에 담아 클래스에 한 번에 적용시킬 수 있다.
+
+```python
+has_ownership = [account_ownership_required,login_required]
+@method_decorator(has_ownership,'get')
 ```
 
