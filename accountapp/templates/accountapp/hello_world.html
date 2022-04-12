@@ -41,7 +41,7 @@
       {% for hello_world in hello_world_list %}
         <div class="d-flex justify-content-between">
           <h5>{{hello_world.pk}}번째 글 </h5>
-          <h4 class="col-8">{{hello_world.text}}</h4>
+          <h4 style="text-align:left;"class="col-8">{{hello_world.text}}</h4>
           <hr>
           <form action="{% url 'accountapp:text_delete' hello_world.pk %}" method='POST'>
             {% csrf_token %}
