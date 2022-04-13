@@ -465,7 +465,10 @@ pip install django-bootstrap4
 - **방법 2. 링크 코드의 URL 변경**
   - CSS 파일을 링크하는 HTML 파일(PHP, JSP)을 열어 기존 CSS 파일의 URL 뒤에 **?after**를 붙이기
 
-
+- **방법 3. 새로고침 **
+  - ctrl + shift + F5
+- ** 방법4. 캐싱 사용 중지 **
+  - 개발자도구 -> 네트워크 -> 캐싱 사용 중지
 
 ### Detail view
 
@@ -961,5 +964,113 @@ class ProfileUpdateView(UpdateView) :
     # object는 profile을 가르킴 
     #즉, 연결되어있는 user의 pk를 찾아서 detail로 갈 때 같이 넘겨줌 
         return reverse('accountapp:detail',kwargs={'pk':self.object.user.pk})
+```
+
+### Articleapp 만들기
+
+- 카드형으로 게시글 창을 만들기 위해 js의 magic_grid가 필요함 
+
+1. html 만들기
+2. div태그 만들기
+
+```html
+<div class="container">
+    <div>
+      <img src="https://picsum.photos/200/300">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/340">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/280">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/390">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/200">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/500">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/100">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/250">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/320">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/300">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/300">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/270">
+    </div>
+    <div>
+      <img src="https://picsum.photos/200/330">
+    </div>
+```
+
+3. style 추가
+
+```css
+<style>
+
+  .container div {
+    width: 250px;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+  }
+  
+    .container img {
+    width: 100%;
+    }
+  
+  
+</style>
+```
+
+4. static 폴더 내부에 js폴더 생성, magicgrid.js생성 후 magicgrid 아래 url에서 가져오고 붙여넣기 
+
+https://github.com/e-oj/Magic-Grid/blob/master/dist/magic-grid.cjs.js
+
+5. magicgrid.js 하단에 magicGrid옵션 추가
+
+```js
+
+let magicGrid = new MagicGrid({
+  container: '.container',
+  animate: true,
+  gutter: 30,
+  static: true,
+  useMin: true
+  });
+  
+  var masonrys = document.getElementsByTagName("img");
+  #모든 html 태그 내의 이미지에 대해서 다 로드가 되면 매직그리드를 다시 포지셔닝해라 
+  for (let i = 0; i < masonrys.length; i++){
+      masonrys[i].addEventListener('load', function(){
+          magicGrid.positionItems();
+      }, false);
+  }
+  
+  magicGrid.listen();
+```
+
+6. 사진을 일단 랜덤으로 배치한다. 
+
+```html
+<div>
+    <img src="https://picsum.photos/200/330">
+</div>
+#이미지 뒤 url에 첫번째 인자는 너비, 두번째 인자는 높이
 ```
 
