@@ -10,10 +10,14 @@
         {{ target_user.date_joined }}
       </p>
 
-      {% if traget_user.profile %}
+      {% if target_user.profile %}
       <h2>
         {% comment %} user 이름  {% endcomment %}
         {{ target_user.profile.nickname }}
+        <hr>
+        <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}">
+          edit
+        </a>
       </h2>
       {% else %}
       <a href="{% url 'profileapp:create' %}">

@@ -3,11 +3,12 @@ from accountapp import views
 from django.urls import path
 from django.contrib.auth.views import LoginView,LogoutView
 
-from profileapp.views import ProfileCreateView
+from profileapp.views import ProfileCreateView, ProfileUpdateView
 
 #앱네임과 path에 name을 설정해주면 name을 입력했을 때 path로 자동 이동해주는 역할을 할 수 있다.
 app_name = 'profileapp'
 urlpatterns = [
-    path('create/',ProfileCreateView.as_view(), name='create')
+    path('create/',ProfileCreateView.as_view(), name='create'),
+    path('update/<int:pk>', ProfileUpdateView.as_view(),name='update')
     
 ]
