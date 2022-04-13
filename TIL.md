@@ -931,3 +931,35 @@ class ProfileCreateView(CreateView) :
         return super().form_valid(form)
 ```
 
+#### ProfileUpdateView
+
+```python
+@method_decorator(profile_ownership_required,'get')
+@method_decorator(profile_ownership_required,'post')
+
+class ProfileUpdateView(UpdateView) :
+    model = Profile 
+    context_object_name = 'target_profile'
+    form_class = ProfileCreationForm
+    success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'profileapp/update.html'
+```
+
+#### get_success_url function and code refactoring
+
+- 프로필 생성 및 변경시 메인페이지가 아닌 account:detail로 보내고 싶은데, 그러려면 pk를 줘야함
+- pk를 주려면 내부 method를 수정해야함 
+- get_success_url을 수정해서 pk를 찾아 넘겨주게함 
+
+```python
+class ProfileUpdateView(UpdateView) :
+    model = Profile 
+    context_object_name = 'target_profile'
+    form_class = ProfileCreationForm
+    template_name = 'profileapp/update.html'
+    def get_success_url(self):
+    # object는 profile을 가르킴 
+    #즉, 연결되어있는 user의 pk를 찾아서 detail로 갈 때 같이 넘겨줌 
+        return reverse('accountapp:detail',kwargs={'pk':self.object.user.pk})
+```
+
