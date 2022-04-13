@@ -880,3 +880,46 @@ class Profile(models.Model) :
 
 - form과 modelform이 있는데, user관련은 django에서 제공해주는 기본 폼들을 사용했는데, Profile은 기본 제공 form이 없다. 그래서 따로 만들어야 하는데, 다 타이핑하기 힘드니까 ModelForm을 제공한다. 
 - 기존 모델을 Form으로 변환해주는 방식 
+
+## 0413
+
+#### 프로필 페이지 만들기
+
+- 프로필이 있다면 유저의 닉네임을 보여주고, 프로필이 없다면 프로필을 만들 수 있는 페이지로 이동
+
+```django
+# accounts/detail.html
+{% if traget_user.profile %}
+      <h2>
+        {% comment %} user 이름  {% endcomment %}
+        {{ target_user.profile.nickname }}
+      </h2>
+      {% else %}
+      <a href="{% url 'profileapp:create' %}">
+        <h2>
+          Create Profile
+        </h2>
+      </a>
+      {% endif %}
+```
+
+- 파일을 넣었는데도 파일을 넣으라는 오류 발생
+
+  - create.html에서 img를 보낼때는 enctype을 명시해야하는데, 하지 않아서 발생하는 문제
+  - enctype을 명시해서 해결할 수 있음
+
+  ```django
+  #profile/create.html
+  <form action="{% url 'profileapp:create' %}" method = "post" enctype="multipart/form-data">
+  ```
+
+- profile에 user.id가 없다는 문제 발생. 
+- profile을 view에서 만들 때 validation 과정에서 form 저장 시 commit을 하지 않고, user데이터를 받은 후 저장하게 변경 
+
+```python
+    def form_valid(self, form) :
+        return super().form_valid(form)
+```
+
+
+

@@ -9,11 +9,19 @@
         {% comment %} 가입한 시간 정보 {% endcomment %}
         {{ target_user.date_joined }}
       </p>
+
+      {% if traget_user.profile %}
       <h2>
         {% comment %} user 이름  {% endcomment %}
-        {{ target_user.username }}
+        {{ target_user.profile.nickname }}
       </h2>
-
+      {% else %}
+      <a href="{% url 'profileapp:create' %}">
+        <h2>
+          Create Profile
+        </h2>
+      </a>
+      {% endif %}
       {% comment %} 수정페이지 {% endcomment %}
       {% comment %} target_user가 지금 유저와 같다면  {% endcomment %}
       {% if target_user == user %}

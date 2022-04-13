@@ -7,7 +7,7 @@
 
     <div class="mb-4">
       <h4>Profile Create</h4> </div>
-    <form action="{% url 'profileapp:create' %}" method = "post">
+    <form action="{% url 'profileapp:create' %}" method = "post" enctype="multipart/form-data">
       {% csrf_token %}
       {% comment %} 장고에서 제공하는 기본 폼 사용  {% endcomment %}
       {% bootstrap_form form%}
