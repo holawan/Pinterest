@@ -10,6 +10,7 @@
         {{ target_user.date_joined }}
       </p>
 
+      <img src="{{ target_user.profile.image.url }}" alt="" style="height: 8rem; width 8rem; border-radius:10rem"> 
       {% if target_user.profile %}
       <h2>
         {% comment %} user 이름  {% endcomment %}
