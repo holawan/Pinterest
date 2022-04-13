@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+
+from profileapp.decorator import profile_ownership_required
 from .forms import ProfileCreationForm
 from .models import Profile
 from django.views.generic import CreateView,UpdateView
 # Create your views here.
+from django.utils.decorators import method_decorator
+
 
 class ProfileCreateView(CreateView) :
     model = Profile 
@@ -18,6 +22,8 @@ class ProfileCreateView(CreateView) :
         temp_profile.save()
         return super().form_valid(form)
 
+@method_decorator(profile_ownership_required,'get')
+@method_decorator(profile_ownership_required,'post')
 
 class ProfileUpdateView(UpdateView) :
     model = Profile 

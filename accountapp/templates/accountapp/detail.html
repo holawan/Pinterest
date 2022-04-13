@@ -10,12 +10,11 @@
         {{ target_user.date_joined }}
       </p>
 
-      <img src="{{ target_user.profile.image.url }}" alt="" style="height: 8rem; width 8rem; border-radius:10rem"> 
+      <img src="{{ target_user.profile.image.url }}" alt="" style="height: 8rem; width 8rem; border-radius:20rem; margin-bottom:2rem" > 
       {% if target_user.profile %}
       <h2>
         {% comment %} user 이름  {% endcomment %}
         {{ target_user.profile.nickname }}
-        <hr>
         <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}">
           edit
         </a>
@@ -27,6 +26,10 @@
         </h2>
       </a>
       {% endif %}
+      <hr>
+      <h4 style="margin-bottom: 3rem">
+        {{target_user.profile.message}}
+      </h4>
       {% comment %} 수정페이지 {% endcomment %}
       {% comment %} target_user가 지금 유저와 같다면  {% endcomment %}
       {% if target_user == user %}
