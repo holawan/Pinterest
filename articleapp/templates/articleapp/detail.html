@@ -8,17 +8,25 @@
      <h1>
        {{target_article.title}}
      </h1>
-
-     <img src="{{ target_article.image.url }}" alt="">
+     <h4>
+       작성자 : {{ target_article.writer.profile.nickname}}
+     </h4>
+     <hr>
+     <img src="{{ target_article.image.url }}" alt="" style="width:100%; border-radius: 1rem; margin:2rem 0;">
 
      <p>
        {{ target_article.content}}
      </p>
-     <a href="{% url 'articleapp:update' pk=target_article.pk%}">
-       UPDATE ARticle
+     
+     {% if target_article.writer == request.user %}
+     <a href="{% url 'articleapp:update' pk=target_article.pk%}" class="btn btn-primary rounded-pill col-3">
+       UPDATE
      </a>
-     <a href="{% url 'articleapp:delete' pk=target_article.pk%}">
-      Delete ARticle
+     <a href="{% url 'articleapp:delete' pk=target_article.pk%}" class="btn btn-danger rounded-pill col-3">
+      Delete
     </a>
+    <hr>
+    {% endif %}
+    
   </div>
 {% endblock content %}
