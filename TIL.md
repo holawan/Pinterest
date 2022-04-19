@@ -1074,3 +1074,54 @@ let magicGrid = new MagicGrid({
 #이미지 뒤 url에 첫번째 인자는 너비, 두번째 인자는 높이
 ```
 
+
+
+## 0419
+
+#### 모델 생성 
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+# Create your models here.
+class Article(models.Model) :
+    # set_null 설정을 함으로 삭제되었을 때도 게시글이 사라지지 않고, 알 수 없음 표시가 되게 함.
+    # related_name= 'article'은 유저가 여러 글을 쓸 수 있기 때문에 user가 쓴 글을 다 보려고 설정하는 것 
+    writer = models.ForeignKey(User, on_delete=models.SET_NULL,related_name='article',null=True)
+    title = models.CharField(max_length=200, null=True)
+    image = models.ImageField(upload_to = 'article/', null=False)
+    content = models.TextField(null=True)
+
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+```
+
+### LIst view
+
+```python
+class ArticleListView(ListView) :
+    #어떤 모델 ?
+    model = Article
+    #어던 템플릿 이름을 쓸건지 
+    context_object_name = 'article_list'
+    template_name = 'articleapp/list.html'
+    #한 페이지에 몇개의 객체를 보여줄 것인지 
+    paginate_by = 25
+```
+
+### Pagination
+
+- Generate Page of objects
+  - 페이지에 객체를 생성한다
+  - 구글에서 검색을 할 때 하단에 페이지가 보이는 것을 페이지네이션이라고 한다. 
+- Infiniite Scroll
+  - 페이스북이나 인스타그램에서는 무한으로 아래로 내릴때 게시글들이 나온다. 
+
+- page_obj를 템플릿에서 사용할 수 있다.
+
+![articlelist](TIL.assets/articlelist.PNG)
+
+- Article_LIst는 게시글의 리스트
+  - 이 안에 객체의 각각 정보가 담겨있고, 이 정보를 기반으로 HTML에 핀터레스트의 카드형 레이아웃을 가져오면 뿌려주는 역할을 하는 꾸러미이다.
+- Page_obj
+  - 하단에 페이지를 만들 때 사용하는 역할 
