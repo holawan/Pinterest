@@ -6,7 +6,11 @@
   </div>
   <div>
     <span><a href="{% url 'accountapp:hello_world' %}">Home</a></span>
-    <span>nav2</span>
+    <a href="{% url 'articleapp:list' %}">
+      <span>
+        Articles
+      </span>
+    </a>
     <span>nav3</span>
     {% comment %} user가 로그인이 되어있지 않다면 로그인을 보여줘라 {% endcomment %}
     {% if not user.is_authenticated %}
