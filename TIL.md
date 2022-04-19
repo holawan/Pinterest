@@ -1125,3 +1125,15 @@ class ArticleListView(ListView) :
   - 이 안에 객체의 각각 정보가 담겨있고, 이 정보를 기반으로 HTML에 핀터레스트의 카드형 레이아웃을 가져오면 뿌려주는 역할을 하는 꾸러미이다.
 - Page_obj
   - 하단에 페이지를 만들 때 사용하는 역할 
+
+#### 구현 결과
+
+![0420_artilce_list](TIL.assets/0420_artilce_list.PNG)
+
+#### 페이지네이션 추가
+
+![list](TIL.assets/list.PNG)
+
+#### Detail 수정
+
+![0420](TIL.assets/0420.PNG)
