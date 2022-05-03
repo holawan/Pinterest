@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'accountapp',
     'profileapp',
     'articleapp',
-    
+    'commentapp',
     'bootstrap4',
 
     'django.contrib.admin',

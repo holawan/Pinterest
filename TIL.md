@@ -54,7 +54,7 @@
   - Django를 git에 배포할 때 Secret key가 있는데 이를 노출시키지 않게 하는 역할 
   - https://django-environ.readthedocs.io/en/latest/
 
-  - Venv 폴더 내부에 해당 코드 복사
+  - 메인 프로젝트 폴더 내부에 해당 코드 복사
 
     - 주의사항 : SECRET_KEY = '' 이런식으로 띄어쓰기 금지 
 
@@ -1137,3 +1137,54 @@ class ArticleListView(ListView) :
 #### Detail 수정
 
 ![0420](TIL.assets/0420.PNG)
+
+## 0503
+
+### Mixin
+
+- create view 
+
+```python
+class ArticleCreatView(CreateView) :
+    model = Article
+    form_class = ArticleCreationForm 
+    template_name = 'articleapp/create.html'
+
+    def form_valid(self,form) :
+        temp_article = form.save(commit=False)
+        temp_article.writer = self.request.user
+        temp_article.save()
+
+        return super().form_valid(form)
+    def get_success_url(self) :
+        return reverse('articleapp:detail',kwargs={'pk' : self.object.pk})
+```
+
+- detail view
+
+```python
+class ArticleDetailView(DetailView) :
+    model = Article
+    context_object_name = 'target_article'
+    template_name = 'articleapp/detail.html'
+```
+
+- 크리에이트 뷰에서는 form이 있고, detail view에서는 object가 있다.
+- 만약 디테일뷰를 Form과 같이 사용하고 싶다면? 
+  - Detail view에서 위에만 Article의 내용이 나오고 밑에는 Comment Form을 만들려면 문제가 생긴다.
+- 이 때 Mixin을 사용해서 Detailview에 다중 상속을 줘  문제를 해결할 수 있다.
+
+```python
+class AccountDetailView(DetailView,FormMixin) :
+    model = User
+    form_class = CommentCreationForm
+    context_object_name = 'target_user'
+```
+
+### Comment View 구조
+
+- Create/Delte 
+- Success_ulr to related article
+- Model(article/writer/content/created_at)
+
+### url 
