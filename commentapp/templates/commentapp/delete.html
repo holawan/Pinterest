@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <div style = "text-align: center; max-width: 500px; margin: 4rem auto;">
+    {% comment %} accountapp_crate로 연결해라  {% endcomment %}
+    <div class="mb-4">
+      <h4>Delete Comment {{ target_comment.content }}</h4>
+    </div>
+    <form action="{% url 'commentapp:delete' pk=target_comment.pk %}" method = "post">
+      {% csrf_token %}
+      {% comment %} 장고에서 제공하는 기본 폼 사용  {% endcomment %}
+      <input type="submit" value = "댓글 삭제" class = "btn btn-danger rounded-pill col-6 mb-3">
+    </form>
+    {% comment %} <hr> {% endcomment %}
+  </div>
+
+  <hr>
+
+{% endblock content %}
