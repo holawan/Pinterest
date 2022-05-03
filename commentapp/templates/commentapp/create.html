@@ -1,0 +1,24 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+{% load bootstrap4 %}
+{% block content %}
+
+  <div style = "text-align: center; max-width: 500px; margin: 4rem auto;">
+    {% comment %} accountapp_crate로 연결해라  {% endcomment %}
+
+    <div class="mb-4">
+      <h4>Coment Create</h4> </div>
+
+    <form action="{% url 'commentapp:create' %}" method = "post">
+      {% csrf_token %}
+      {% comment %} 장고에서 제공하는 기본 폼 사용  {% endcomment %}
+      {% bootstrap_form form%}
+      {% if user.is_authenticated %}
+      <input type="submit" class = "btn btn-primary rounded-pill col-6 mt-3">
+      {% else %}
+      <a href="{% url 'accountapp:login' %}?next={{ request.path }}" class = "btn btn-primary rounded-pill col-6 mt-3">Login</a>
+      {% endif %}
+      <input type="hidden" name="article_pk" value="{{article.pk}}">
+    </form>
+  </div>
+
+{% endblock content %}
