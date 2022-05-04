@@ -1187,4 +1187,59 @@ class AccountDetailView(DetailView,FormMixin) :
 - Success_ulr to related article
 - Model(article/writer/content/created_at)
 
-### url 
+### 
+
+## 0504
+
+### 반응형 웹 만들기
+
+- 어떻게 모바일 웹으로 연결하는가?
+
+- django를 열면 127.0.0.1:8000으로 연결된다. 
+  - 이는 로컬에서만 접속이 가능하다.
+- 따라서 url을 0.0.0.0:8000으로 변경한다.
+  - 로컬호스트 말도고 ip 주소를 기반으로 접속할 수 있다.
+
+### Connect to WIFI local network server IP
+
+- 와이파이가 같이 연결되어 있으면 설정 가능하다.
+
+- django runserver를 0.0.0.0:8000으로 구동하기
+
+```
+$ python manage.py runserver 0.0.0.0:8000
+```
+
+### ALLOWED_HOST
+
+- settings.py조정하기
+
+```python
+ALLOWED_HOSTS = ['*']
+```
+
+- '*'를 넣어주면 모든 호스트를 허용한다는 뜻 
+- 배포시에는 신경쓸 것 ! 
+
+### Mobile 연결
+
+cmd창에서 ipconfig를 입력한다.
+
+```
+C:\Users\SAMSUNG>ipconfig
+```
+
+![ipconfig](TIL.assets/ipconfig.png)
+
+- 이런식으로 뜨는데, IPv4 주소를 mobile에서 입력해주면 된다. 
+
+```
+000.000.00.00:8000/articles/list/
+```
+
+<img src="TIL.assets/mobile2.jpg" alt="mobile2" style="zoom:25%;" /><img src="TIL.assets/mobile1.jpg" alt="mobile1" style="zoom: 25%;" />
+
+
+
+
+
