@@ -13,6 +13,9 @@ from accountapp.decorator import account_ownership_required
 from accountapp.forms import AccountUpdateForm
 
 from accountapp.models import HelloWorld
+from django.views.generic.list import MultipleObjectMixin
+
+from articleapp.models import Article
 
 
 has_ownership = [account_ownership_required,login_required]
@@ -60,11 +63,17 @@ class AccountCreateView(CreateView) :
     # 회원가입 할 때 볼 HTML 지정 
     template_name = 'accountapp/create.html'
 
-class AccountDetailView(DetailView) :
+class AccountDetailView(DetailView,MultipleObjectMixin) :
     model = User 
     # target_user를 설정하지 않으면 
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
+
+    paginate_by = 25
+
+    def get_context_data(self, **kwargs) :
+        object_list = Article.objects.filter(writer = self.get_object ()) 
+        return super(AccountDetailView, self).get_context_data(object_list=object_list, **kwargs)
 
 # 클래스에 데코레이터를 적용할 수 있는 method_decorator
 @method_decorator(has_ownership,'get')
