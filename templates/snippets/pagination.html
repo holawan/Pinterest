@@ -3,12 +3,12 @@
   이전페이지로 넘어가는 버튼을 만들어줌 
   {% endcomment %}
   {% if page_obj.has_previous %}
-  <a href="{% url 'articleapp:list' %}?page={{page_obj.previous_page_number}}"
+  <a href="page={{page_obj.previous_page_number}}"
    class="btn btn-secondary rounded-pill">
     {{page_obj.previous_page_number}}
   </a>
   {% endif %}
-  <a href="{% url 'articleapp:list' %}?page={{page.obj.number}}" 
+  <a href="?page={{page.obj.number}}" 
     class = "btn btn-secondary rounded-pill active">
     {{ page_obj.number}}   
   </a>
@@ -16,7 +16,7 @@
     다음 페이지가 있으면 다음페이지로 향하는 버턴을 생성 
   {% endcomment %}
   {% if page_obj.has_next %}
-  <a href="{% url 'articleapp:list' %}?page={{page_obj.next_page_number}}"
+  <a href="?page={{page_obj.next_page_number}}"
    class="btn btn-secondary rounded-pill">
     {{page_obj.next_page_number}}
   </a>
