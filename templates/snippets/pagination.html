@@ -3,7 +3,7 @@
   이전페이지로 넘어가는 버튼을 만들어줌 
   {% endcomment %}
   {% if page_obj.has_previous %}
-  <a href="page={{page_obj.previous_page_number}}"
+  <a href="?page={{page_obj.previous_page_number}}"
    class="btn btn-secondary rounded-pill">
     {{page_obj.previous_page_number}}
   </a>
