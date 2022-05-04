@@ -8,4 +8,4 @@ class ArticleCreationForm(ModelForm) :
     class Meta :
         model = Article
         #writer은 서버 내부에서 설정한다. 
-        fields = ['title','image','content']
+        fields = ['title','image','project','content']
