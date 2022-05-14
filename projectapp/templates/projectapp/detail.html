@@ -16,6 +16,14 @@
         {{ target_project.description }}
       </h5>
     </div>
+
+    <div class="text-center">
+      {% if user.is_authenticated%}
+      <a href="{% url 'subscribeapp:subscribe' %}?project_pk={{target_project.pk}}" class="btn btn-primary">
+        Subscribe
+      </a>
+      {% endif %}
+    </div>
     <div>
 
       {% include 'snippets/list_pragment.html' with article_list=object_list %}
