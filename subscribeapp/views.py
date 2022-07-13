@@ -7,6 +7,8 @@ from django.urls import reverse
 from projectapp.models import Project
 from subscribeapp.models import Subscription
 @method_decorator(login_required,'get')
+# youtube에서 구독을 누르면 구독버튼만 바뀐다. 
+# 처리하고 바로 redirect하도록 redirectView를 사용한다
 class SubscriptionView(RedirectView) :
 
     # 되돌아갈 곳은 project 내부 detail에서 구독을 누르는데, project_pk를 get으로 받아서 그 페이지로 되돌아감

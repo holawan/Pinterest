@@ -9,3 +9,7 @@ class Subscription(models.Model) :
 
     class Meta :
         unique_together = ('user', 'project')
+
+    def __str__(self):
+        return self.project.title
+    

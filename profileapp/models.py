@@ -17,3 +17,5 @@ class Profile(models.Model) :
 
     #대화명
     message = models.CharField(max_length=100, null =True)
+
+    
