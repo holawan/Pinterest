@@ -8,6 +8,7 @@ class Subscription(models.Model) :
     project = models.ForeignKey(Project, on_delete=models.CASCADE,related_name='subscription')
 
     class Meta :
+        # user와 project의 쌍은 오직 하나만 ! 
         unique_together = ('user', 'project')
 
     def __str__(self):

@@ -17,17 +17,17 @@ class SubscriptionView(RedirectView) :
 
     def get(self,request,*args, **kwargs) :
 
-        project = get_object_or_404(Project, pk=self.request.Get.get('project_pk'))
+        project = get_object_or_404(Project, pk=self.request.GET.get('project_pk'))
         user = self.request.user
         
-        subscription = Subscription.obejct.fileter(user=user,project=project)
+        subscription = Subscription.objects.filter(user=user,project=project)
 
         # 해당 구독정보가 존재하면 구독 취소 
         if subscription.exists() :
             subscription.delete()
         # 구독정보가 없으면 구독에 추가 
         else :
-            subscription(user=user,project=project).save()
+            Subscription(user=user,project=project).save()
 
         return super(SubscriptionView,self).get(request,*args, **kwargs)
 
