@@ -12,7 +12,6 @@ from django.contrib.auth.forms import UserCreationForm
 from accountapp.decorator import account_ownership_required
 from accountapp.forms import AccountUpdateForm
 
-from accountapp.models import HelloWorld
 from django.views.generic.list import MultipleObjectMixin
 
 from articleapp.models import Article
@@ -21,35 +20,6 @@ from articleapp.models import Article
 has_ownership = [account_ownership_required,login_required]
 
 
-# 장고에서 로그인 여부에 따라 리턴을 하는 것을 제공해준다. login_required
-@login_required
-def hello_world(request) :
-    # get 요청을 받으면 get METHOD를 표시 
-    if request.method == "POST" : 
-        # request 의 post 중에서 hello_world_input 데이터를 가져오고 tmp에 넣어라
-        temp = request.POST.get('hello_world_input')
-        # DB를 구성한 모델을 가져온다. 
-
-
-        new_hello_world = HelloWorld()
-        #POST로 받아온 값을 DB에 추가해준다.
-        #new_hello_world 인스턴스의 text에 temp를 저장 
-        new_hello_world.text = temp
-        new_hello_world.save()
-
-        # 경로를 다시 만들어주려면 reverse라는 함수를 써야한다. 
-        #어카운트에 헬로우 월드로 재접속하라 ?
-        return redirect(reverse('accountapp:hello_world'))
-    # POST 요청을 받으면 POST MEHTOD 표시 
-    else :
-        hello_world_list = HelloWorld.objects.all()[::-1]
-        return render(request,'accountapp/hello_world.html',context={'hello_world_list': hello_world_list})
-
-def text_delete(request,pk) :
-    if request.method == "POST" :
-        text =  HelloWorld.objects.get(pk=pk) 
-        text.delete()
-    return redirect('accountapp:hello_world')
 
 # 장고의 크리에이트 뷰 상속 받기 
 class AccountCreateView(CreateView) :
@@ -59,7 +29,7 @@ class AccountCreateView(CreateView) :
     form_class = UserCreationForm
     # 계정을 만들 때 성공했으면 경로 지정 
     # reverse_lazy는 
-    success_url = reverse_lazy('accountapp:hello_world')
+    success_url = reverse_lazy('articleapp:list')
     # 회원가입 할 때 볼 HTML 지정 
     template_name = 'accountapp/create.html'
 
@@ -86,7 +56,7 @@ class AccountUpdateView(UpdateView) :
     form_class = AccountUpdateForm
     # 계정을 만들 때 성공했으면 경로 지정 
     # reverse_lazy는 
-    success_url = reverse_lazy('accountapp:hello_world')
+    success_url = reverse_lazy('articleapp:list')
     # 정보수정할 때  할 때 볼 HTML 지정 
     template_name = 'accountapp/update.html'
     context_object_name = 'target_user'

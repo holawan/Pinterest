@@ -19,7 +19,7 @@
         {{ target_user.profile.nickname }}
 
         {% if target_user == user %}
-        <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}">
+        <a class="material-icons" style="box-shadow: 0 0 3px #ccc border-radius: 10rem; padding: 0.4rem;;" href="{% url 'profileapp:update' pk=target_user.profile.pk %}">
           edit
         </a>
         {% endif %}
@@ -45,13 +45,13 @@
       {% comment %} target_user가 지금 유저와 같다면  {% endcomment %}
       {% if target_user == user %}
       {% comment %} user 정보수정이 가능한 정보 수정 페이지를 표시  {% endcomment %}
-      <a href="{% url 'accountapp:update' pk=user.pk %}">
+      <a class="material-icons" style="box-shadow: 0 0 3px #ccc border-radius: 10rem; padding: 0.4rem; color:skyblue;" href="{% url 'accountapp:update' pk=user.pk %}">
         <p>
-          Change Info
+          settings
         </p>
       </a>
-      <a href="{% url 'accountapp:delete' pk=user.pk %}">
-        <p>Quit</p>
+      <a  class="material-icons" style="box-shadow: 0 0 3px #ccc border-radius: 10rem; padding: 0.4rem; color:red;" href="{% url 'accountapp:delete' pk=user.pk %}">
+        <p>cancel</p>
       </a>
       {% endif %}
     </div>

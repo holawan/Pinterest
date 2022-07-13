@@ -147,8 +147,8 @@ STATICFILES_DIRS = [
 ]
 
 # 로그인 주소창에 직접 가서 로그인을 하면 hello_world로 돌아온다. 
-LOGIN_REDIRECT_URL = reverse_lazy('accountapp:hello_world')
-LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')
+LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGOUT_REDIRECT_URL = reverse_lazy('home')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
