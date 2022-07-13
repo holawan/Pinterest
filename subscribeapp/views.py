@@ -3,12 +3,16 @@ from django.views.generic import RedirectView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from articleapp.models import Article
 # Create your views here.
 from projectapp.models import Project
 from subscribeapp.models import Subscription
-@method_decorator(login_required,'get')
+from django.views.generic import ListView
+
+
 # youtube에서 구독을 누르면 구독버튼만 바뀐다. 
 # 처리하고 바로 redirect하도록 redirectView를 사용한다
+@method_decorator(login_required,'get')
 class SubscriptionView(RedirectView) :
 
     # 되돌아갈 곳은 project 내부 detail에서 구독을 누르는데, project_pk를 get으로 받아서 그 페이지로 되돌아감
@@ -31,4 +35,19 @@ class SubscriptionView(RedirectView) :
 
         return super(SubscriptionView,self).get(request,*args, **kwargs)
 
-    
+
+@method_decorator(login_required,'get')    
+class SubscriptionListView(ListView) :
+
+    model = Article 
+    context_object_name = 'article_list'
+    template_name = 'subscribeapp/list.html'
+    paginate_by = 5 
+
+    def get_queryset(self) :
+
+        projects = Subscription.objects.filter(user=self.request.user).values_list('project')
+        # values_list : 가져온 값들을 리스트화 시킨다 
+        #projects에는 구독한 모든 프로젝트가 담길 것이다. 
+        article_list = Article.objects.filter(project__in=projects)
+        return article_list

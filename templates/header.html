@@ -16,6 +16,11 @@
         Project
       </span>
     </a>
+    <a href="{% url 'subscribeapp:list' %}" class="pragmatic_header_nav">
+      <span>
+        Subscription
+      </span>
+    </a>
     {% comment %} user가 로그인이 되어있지 않다면 로그인을 보여줘라 {% endcomment %}
     {% if not user.is_authenticated %}
     {% comment %} next 인자를 사용해서 우리가 만든 페이지 어디선가 next라는 인자를 넘겨줘서 

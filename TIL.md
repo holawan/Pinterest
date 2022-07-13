@@ -1243,7 +1243,3 @@ C:\Users\SAMSUNG>ipconfig
 
 
 
-### aritlce project 연동하기
-
-- article 모델에 어떤 project에 들어갈지 설정 
-  - 
