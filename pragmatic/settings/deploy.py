@@ -1,20 +1,16 @@
 # deploy
-import os,environ
+import os
 from .base import *
 
 def read_secret(secret_name):
-    
-    file = open('/run/secrets/' + secret_name)
+    file = open("/run/secrets/" + secret_name)
     secret = file.read()
     secret = secret.rstrip().lstrip()
     file.close()
-    
+
     return secret
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+
 
 #1 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,10 +19,6 @@ env = environ.Env(
 # reading .env file
 
 ## env가 root 폴더에 있을 때 
-environ.Env.read_env(
-    env_file=os.path.join(BASE_DIR, '.env')
-)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
