@@ -1,0 +1,58 @@
+version: '3.7'
+services:
+  nginx:
+    image: nginx:1.19.5
+    networks:
+      - network
+    volumes:
+      - /home/django_course/nginx.conf:/etc/nginx/nginx.conf
+      - static-volume:/data/static 
+      - media-volume:/data/media
+    ports:
+      - 80:80 
+  # 컨테이너 이름으로 소통이 진행되므로, 이름을 container 이름으로 지어주자
+  django_container_gunicorn:
+    image: django_test_image:5
+    networks:
+      - network
+    volumes:
+      - static-volume:/home/Pinterest/staticfiles
+      - media-volume:/home/Pinterest/media 
+    secrets :
+      - MYSQL_PASSWORD
+      - DJANGO_SECRET_KEY
+  # db는 배포 환경의 HOST Name과 같게 해야한다. 
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - network 
+    volumes:
+    # 경로는 docker hub에 명시된 /var/lib/mysql로 설정하자
+      - maria-database:/var/lib/mysql 
+    # mariadb secret을 만들 때 _FILE이라는 접미사로 설정할 수 있고, secret의 경로를 제공해줘야한다. 
+    secrets:
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE : /run/secrets/MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE : django
+      MYSQL_USER : django 
+      MYSQL_PASSWORD_FILE : /run/secrets/MYSQL_PASSWORD
+
+networks:
+  network:
+
+volumes:
+  static-volume: 
+  media-volume:
+  maria-database: 
+      
+secrets:
+  DJANGO_SECRET_KEY:
+    external: true 
+
+  MYSQL_PASSWORD:
+    external: true 
+
+  MYSQL_ROOT_PASSWORD:
+    external: true
