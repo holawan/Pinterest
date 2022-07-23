@@ -1,6 +1,4 @@
-## 오늘 배운점 
-
-## 0330
+# TIL
 
 ### Django
 
@@ -109,7 +107,7 @@
   #원하는 만큼 커밋을 없앨 수 있다. 
   ```
 
-## 0331
+
 
 ### HTML 
 
@@ -180,7 +178,7 @@
   - STATIC 폴더 안에 CSS파일을 만들고, head에서 링크를 받게한다. 
   - 공통된 요소들은 가시성 있게 클래스로 만들고 style을 css파일에서 준다. 
 
-## 0404
+
 
 ### CSS 
 
@@ -302,7 +300,7 @@
 
     두 함수를 헷갈려 혼동하는 경우가 많습니다. 생각 외로 둘의 차이는 명확합니다. `render` 는 템플릿을 불러오고, `redirect` 는 URL로 이동합니다. URL 로 이동한다는 건 그 URL 에 맞는 views 가 다시 실행될테고 여기서 render 를 할지 다시 redirect 할지 결정할 것 입니다. 이 점에 유의해서 사용하신다면 상황에 맞게 사용하실 수 있을 겁니다.
 
-## 0405
+
 
 ### Form
 
@@ -433,8 +431,6 @@
 - render를 사용하면 보여줄 html이 없기도 하고, html을 직접 렌더한다면 url이 꼬임 
 
 
-
-## 0406
 
 ### Bootstrap
 
@@ -628,7 +624,7 @@ git push -f
 
 
 
-## 0407
+
 
 ### 인증과정만들기
 
@@ -884,7 +880,7 @@ class Profile(models.Model) :
 - form과 modelform이 있는데, user관련은 django에서 제공해주는 기본 폼들을 사용했는데, Profile은 기본 제공 form이 없다. 그래서 따로 만들어야 하는데, 다 타이핑하기 힘드니까 ModelForm을 제공한다. 
 - 기존 모델을 Form으로 변환해주는 방식 
 
-## 0413
+
 
 #### 프로필 페이지 만들기
 
@@ -1076,8 +1072,6 @@ let magicGrid = new MagicGrid({
 
 
 
-## 0419
-
 #### 모델 생성 
 
 ```python
@@ -1138,8 +1132,6 @@ class ArticleListView(ListView) :
 
 ![0420](TIL.assets/0420.PNG)
 
-## 0503
-
 ### Mixin
 
 - create view 
@@ -1186,10 +1178,6 @@ class AccountDetailView(DetailView,FormMixin) :
 - Create/Delte 
 - Success_ulr to related article
 - Model(article/writer/content/created_at)
-
-### 
-
-## 0504
 
 ### 반응형 웹 만들기
 
