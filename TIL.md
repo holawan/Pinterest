@@ -1231,3 +1231,187 @@ C:\Users\SAMSUNG>ipconfig
 
 
 
+
+
+## WYSIWYG
+
+- What You See Is What You Get(보는대로 글이 써진다!)
+- 현재까지는 글을 쓰면 일반적인 텍스트로 이루어져있는데, 이를 더 굵게도 하고, 크게도 하고, 밑줄도 긋는 것 
+
+### Medium editer
+
+https://github.com/yabwe/medium-editor
+
+#### custom version
+
+```html
+<script src="//cdn.jsdelivr.net/npm/medium-editor@5.23.2/dist/js/medium-editor.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@5.23.2/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+```
+
+#### editable을 이용해 editor를 사용한다.
+
+```html
+<script>var editor = new MediumEditor('.editable');</script>
+```
+
+#### 모델폼 개선
+
+- 기존
+
+```python
+class ArticleCreationForm(ModelForm) :
+
+    class Meta :
+        model = Article
+        #writer은 서버 내부에서 설정한다. 
+        fields = ['title','image','project','content']
+```
+
+- 리팩토링
+
+```python
+class ArticleCreationForm(ModelForm) :
+
+    content = forms.CharField(widget=forms.Textarea(attrs={'class' : 'editable',
+                                                            'style' : 'height auto;' :}))
+    class Meta :
+        model = Article
+        #writer은 서버 내부에서 설정한다. 
+        fields = ['title','image','project','content']
+```
+
+#### editor script 적용
+
+```django
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<script src="//cdn.jsdelivr.net/npm/medium-editor@5.23.2/dist/js/medium-editor.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@5.23.2/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+  <div style = "text-align: center; max-width: 500px; margin: 4rem auto;">
+    {% comment %} accountapp_crate로 연결해라  {% endcomment %}
+
+    <div class="mb-4">
+      <h4>Article Create</h4> </div>
+    <form action="{% url 'articleapp:create' %}" method = "post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% comment %} 장고에서 제공하는 기본 폼 사용  {% endcomment %}
+      {% bootstrap_form form%}
+      <input type="submit" class = "btn btn-primary">
+    </form>
+  </div>
+
+  <script>var editor = new MediumEditor('.editable');</script>
+{% endblock content %}
+```
+
+### 적용 결과
+
+![적용결과2](TIL.assets/적용결과2.PNG)![적용결과](TIL.assets/적용결과.PNG)
+
+#### 문제 발생
+
+- Detail 페이지에서는 태그가 보임
+
+![error](TIL.assets/error.PNG)
+
+#### 해결방법
+
+- Django HTML에 safe 태그 추가
+
+```django
+{{ target_article.content | safe }}
+```
+
+![해결](TIL.assets/해결.PNG)
+
+## Material Design
+
+# Material Design
+
+https://material.io/design
+
+**해당 페이지에서 Icon을 가져오려면 HTML에서 클래스와 이름을 입력해주면 간단하다.**
+
+### github
+
+https://github.com/google/material-design-icons
+
+### Using a font
+
+The `font` and `variablefont` folders contain pre-generated font files that can be included in a project. This is especially convenient for the web; however, it is generally better to link to the web font hosted on Google Fonts:
+
+```
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+      rel="stylesheet">
+```
+
+Read more on [Material Symbols](https://developers.google.com/fonts/docs/material_symbols/) or [Material Icons](https://developers.google.com/fonts/docs/material_icons/) in the Google Fonts developer guide.
+
+
+
+
+
+### Edit 
+
+**적용 전**
+
+![적용전](TIL.assets/적용전.PNG)
+
+```django
+        {% if target_user == user %}
+        <a class="material-icons" href="{% url 'profileapp:update' pk=target_user.profile.pk %}">
+          edit
+        </a>
+        {% endif %}
+```
+
+**적용 후** 
+
+![edit](TIL.assets/edit.PNG)
+
+```django
+        {% if target_user == user %}
+        <a class="material-icons" href="{% url 'profileapp:update' pk=target_user.profile.pk %}">
+          edit
+        </a>
+        {% endif %}
+```
+
+
+
+### Change Info, Quit
+
+**적용 전**
+
+![적용전2](TIL.assets/적용전2.PNG)
+
+```django
+      <a href="{% url 'accountapp:update' pk=user.pk %}">
+        <p>
+          Change Info
+        </p>
+      </a>
+      <a href="{% url 'accountapp:delete' pk=user.pk %}">
+        <p>Quit</p>
+      </a>
+```
+
+**적용 후**
+
+![적용후](TIL.assets/적용후.PNG)
+
+```django
+      <a class="material-icons" style="box-shadow: 0 0 3px #ccc border-radius: 10rem; padding: 0.4rem; color:skyblue;" href="{% url 'accountapp:update' pk=user.pk %}">
+        <p>
+          settings
+        </p>
+      </a>
+      <a  class="material-icons" style="box-shadow: 0 0 3px #ccc border-radius: 10rem; padding: 0.4rem; color:red;" href="{% url 'accountapp:delete' pk=user.pk %}">
+        <p>cancel</p>
+      </a>
+```
+
